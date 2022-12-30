@@ -10,6 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import action.Action;
+import action.QnaDeleteProAction;
+import action.QnaDetailAction;
+import action.QnaListAction;
+import action.QnaListAction;
+import action.QnaModifyFormAction;
+import action.QnaModifyProAction;
+import action.QnaReplyFormAction;
+import action.QnaReplyProAction;
+import action.QnaWriteProAction;
 import action.ReserveCancelProAction;
 import action.ReserveListAction;
 import vo.ActionForward;
@@ -21,6 +30,7 @@ public class MypageFrontController extends HttpServlet {
 		System.out.println("MypageFrontController - doProcess()");
 		
 		request.setCharacterEncoding("UTF-8");
+		
 		String command = request.getServletPath();
 		System.out.println("command : " + command);
 		
@@ -34,6 +44,56 @@ public class MypageFrontController extends HttpServlet {
 			
 		} else if (command.equals("/ReserveCancel.me")) {
 			action = new ReserveCancelProAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaWriteForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("qna/qna_write.jsp");
+			forward.setRedirect(false); // 생략도 가능
+			
+		} else if(command.equals("/QnaWritePro.me")) {
+			action = new QnaWriteProAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnadList.me")) {
+			action = new QnaListAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaDetail.me")) {
+			action = new QnaDetailAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaDeleteForm.me")) {
+			forward = new ActionForward();
+			forward.setPath("qna/qna_delete.jsp");
+			forward.setRedirect(false); // 생략도 가능
+			
+		} else if(command.equals("/QnaDeletePro.me")) {
+			action = new QnaDeleteProAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaModifyForm.me")) {
+			// 글 수정 폼 비즈니스 작업 요청
+			// BoardModifyFormAction 의 execute() 메서드 호출
+			action = new QnaModifyFormAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaModifyPro.me")) {
+			// 글 수정 비즈니스 작업 요청
+			// BoardModifyProAction 의 execute() 메서드 호출
+			action = new QnaModifyProAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaReplyForm.me")) {
+			// 답글 작성 폼 비즈니스 작업 요청
+			// BoardReplyFormAction 의 execute() 메서드 호출
+			action = new QnaReplyFormAction();
+			forward = action.execute(request, response);
+			
+		} else if(command.equals("/QnaReplyPro.me")) {
+			// 답글 작성 비즈니스 작업 요청
+			// BoardReplyProAction 의 execute() 메서드 호출
+			action = new QnaReplyProAction();
 			forward = action.execute(request, response);
 		} 
 		

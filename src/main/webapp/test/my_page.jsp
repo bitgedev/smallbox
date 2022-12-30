@@ -17,6 +17,7 @@
 	<h1>마이 페이지</h1>
 		<h3><a href="Reserved.me?member_id=${sessionScope.sId }">예매 내역(목록)</a></h3>
 		<h3><a href="WishList.sm">찜 목록</a></h3>
-		<h3><a href="MemberModifyForm.sm?member_id=${sessionScope.sId }">회원 정보</a></h3>
+<%-- 		<h3><a href="MemberModifyForm.sm?member_id=${sessionScope.sId }">회원 정보</a></h3> --%>
+		<h3><a href="QnaList.me?member_id=${sessionScope.sId }">문의 내역</a></h3>
 </body>
 </html>
