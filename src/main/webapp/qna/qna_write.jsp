@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>Qna 게시판</title>
 <!-- 외부 CSS 가져오기 -->
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">
@@ -49,35 +49,26 @@
 	<section id="writeForm">
 		<h1>게시판 글 등록</h1>
 		<!-- 파일 업로드 기능 사용 위해 enctype 속성 설정 => cos.jar 라이브러리 필요 -->
-		<form action="BoardWritePro.bo" name="boardForm" method="post" enctype="multipart/form-data">
+		<form action=QnaWritePro.bo" name="boardForm" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
-					<td class="td_left"><label for="board_name">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="board_name" required="required" /></td>
+					<td class="td_left"><label for="member_idx">글쓴이</label></td>
+					<td class="td_right"><input type="text" name="qna_name" required="required" /></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_pass">비밀번호</label></td>
+					<td class="td_left"><label for="qna_pass">비밀번호</label></td>
 					<td class="td_right">
-						<input type="password" name="board_pass" required="required" />
+						<input type="password" name="qna_pass" required="required" />
 					</td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_subject">제목</label></td>
+					<td class="td_left"><label for="qna_subject">제목</label></td>
 					<td class="td_right"><input type="text" name="board_subject" required="required" /></td>
 				</tr>
 				<tr>
-					<td class="td_left"><label for="board_content">내용</label></td>
+					<td class="td_left"><label for="qna_content">내용</label></td>
 					<td class="td_right">
-						<textarea id="board_content" name="board_content" cols="40" rows="15" required="required"></textarea>
-					</td>
-				</tr>
-				<tr>
-					<td class="td_left"><label for="board_file">파일 첨부</label></td>
-					<!-- 파일 첨부 형식은 input 태그의 type="file" 속성 사용 -->
-					<td class="td_right">
-						<input type="file" name="board_file" />
-<!-- 						<br><input type="file" name="board_file2" /> -->
-<!-- 						<br><input type="file" name="board_file3" /> -->
+						<textarea id="qna_content" name="qna_content" cols="40" rows="15" required="required"></textarea>
 					</td>
 				</tr>
 			</table>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>MVC 게시판</title>
+<title>Qna 게시판</title>
 <!-- 외부 CSS 가져오기 -->
 <link href="css/default.css" rel="stylesheet" type="text/css">
 <style type="text/css">

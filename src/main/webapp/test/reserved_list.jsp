@@ -15,7 +15,7 @@
 <body>
 	<header>
 		<!--  Login, Join -->
-		<jsp:include page="top.jsp"></jsp:include>
+		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
 	<h1>마이페이지 예매 내역(목록)</h1>
 	<table border="1">

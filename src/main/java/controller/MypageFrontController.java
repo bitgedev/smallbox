@@ -74,25 +74,25 @@ public class MypageFrontController extends HttpServlet {
 			
 		} else if(command.equals("/QnaModifyForm.me")) {
 			// 글 수정 폼 비즈니스 작업 요청
-			// BoardModifyFormAction 의 execute() 메서드 호출
+			// QnaModifyFormAction 의 execute() 메서드 호출
 			action = new QnaModifyFormAction();
 			forward = action.execute(request, response);
 			
 		} else if(command.equals("/QnaModifyPro.me")) {
 			// 글 수정 비즈니스 작업 요청
-			// BoardModifyProAction 의 execute() 메서드 호출
+			// QnaModifyProAction 의 execute() 메서드 호출
 			action = new QnaModifyProAction();
 			forward = action.execute(request, response);
 			
 		} else if(command.equals("/QnaReplyForm.me")) {
 			// 답글 작성 폼 비즈니스 작업 요청
-			// BoardReplyFormAction 의 execute() 메서드 호출
+			// QnaReplyFormAction 의 execute() 메서드 호출
 			action = new QnaReplyFormAction();
 			forward = action.execute(request, response);
 			
 		} else if(command.equals("/QnaReplyPro.me")) {
 			// 답글 작성 비즈니스 작업 요청
-			// BoardReplyProAction 의 execute() 메서드 호출
+			// QnaReplyProAction 의 execute() 메서드 호출
 			action = new QnaReplyProAction();
 			forward = action.execute(request, response);
 		} 

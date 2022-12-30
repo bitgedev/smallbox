@@ -12,7 +12,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="top.jsp"></jsp:include>
+		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
 	<h1>마이 페이지</h1>
 		<h3><a href="Reserved.me?member_id=${sessionScope.sId }">예매 내역(목록)</a></h3>
