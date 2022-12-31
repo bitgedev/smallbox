@@ -67,11 +67,19 @@ public class ReserveBean {
 	public void setRes_pay(int res_pay) {
 		this.res_pay = res_pay;
 	}
+	public int getRes_point() {
+		return res_point;
+	}
+	public void setRes_point(int res_point) {
+		this.res_point = res_point;
+	}
 	@Override
 	public String toString() {
 		return "ReserveBean [res_num=" + res_num + ", res_date=" + res_date + ", res_time=" + res_time + ", res_seat="
 				+ res_seat + ", movie_title=" + movie_title + ", member_id=" + member_id + ", theater_idx="
-				+ theater_idx + ", res_pay_type=" + res_pay_type + ", res_pay=" + res_pay + "]";
+				+ theater_idx + ", res_pay_type=" + res_pay_type + ", res_pay=" + res_pay + ", res_point=" + res_point
+				+ "]";
 	}
+	
 	
 }

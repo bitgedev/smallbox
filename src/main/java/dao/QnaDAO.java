@@ -40,10 +40,10 @@ public class QnaDAO {
 	}
 	// ----------------------------------------------------------------------------------
 	// 글쓰기 작업 수행
-	// => Service 로부터 전달받은 BoardBean 객체를 사용하여 INSERT 작업 수행
-	// => 파라미터 : BoardBean 객체   리턴타입 : int(insertCount)
-	public int insertBoard(QnaBean board) {
-		System.out.println("BoardDAO - insertBoard()");
+	// => Service 로부터 전달받은 QnaBean 객체를 사용하여 INSERT 작업 수행
+	// => 파라미터 : QnaBean 객체   리턴타입 : int(insertCount)
+	public int insertQna(QnaBean qna) {
+		System.out.println("QnaDAO - insertQna()");
 		
 		// INSERT 작업 결과를 리턴받아 저장할 변수 선언
 		int insertCount = 0;
@@ -56,40 +56,36 @@ public class QnaDAO {
 			// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(board_num) 중 가장 큰 번호 조회
 			// => 조회 결과 + 1 값을 새 글 번호로 지정하고, 조회 결과가 없으면 기본값 1 로 설정
 			// => MySQL 구문의 MAX() 함수 사용(SELECT MAX(컬럼명) FROM 테이블명)
-			int board_num = 1; // 새 글 번호
+			int qna_idx = 1; // 새 글 번호
 			
-			String sql = "SELECT MAX(board_num) FROM board";
+			String sql = "SELECT MAX(qna_idx) FROM qna";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) { // 조회 결과가 있을 경우(= 기존 게시물이 하나라도 존재할 경우)
 				// (만약, 게시물이 존재하지 않을 경우 DB 에서 NULL 로 표기, rs.next() 가 false)
-				board_num = rs.getInt(1) + 1; // 기존 게시물 번호 중 가장 큰 번호(= 조회 결과) + 1
+				qna_idx = rs.getInt(1) + 1; // 기존 게시물 번호 중 가장 큰 번호(= 조회 결과) + 1
 			}
-			System.out.println("새 글 번호 : " + board_num);
+			System.out.println("새 글 번호 : " + qna_idx);
 			// --------------------------------------------------------------------------------
 			// 전달받은 데이터(BoardBean 객체)를 사용하여 INSERT 작업 수행
 			// => 참조글번호(board_re_ref)는 새 글 번호와 동일한 번호로 지정
 			// => 들여쓰기레벨(board_re_lev)과 순서번호(board_re_seq)는 0으로 지정
 			// => INSERT 구문 실행 후 리턴값을 insertCount 변수에 저장
-			sql = "INSERT INTO board VALUES (?,?,?,?,?,?,?,?,?,?,?,now())";
+			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
 			pstmt2 = con.prepareStatement(sql);
-			pstmt2.setInt(1, board_num); // 글번호
-			pstmt2.setString(2, board.getBoard_name()); // 작성자
-			pstmt2.setString(3, board.getBoard_pass()); // 패스워드
-			pstmt2.setString(4, board.getBoard_subject()); // 제목
-			pstmt2.setString(5, board.getBoard_content()); // 내용
-			pstmt2.setString(6, board.getBoard_file()); // 원본파일명
-			pstmt2.setString(7, board.getBoard_real_file()); // 실제파일명
-			pstmt2.setInt(8, board_num); // 참조글번호(글쓰기는 글번호와 동일하게 사용)
-			pstmt2.setInt(9, 0); // 들여쓰기레벨
-			pstmt2.setInt(10, 0); // 순서번호
-			pstmt2.setInt(11, 0); // 조회수
+			pstmt2.setInt(1, qna_idx); // 글번호
+			pstmt2.setString(2, qna.getQna_subject());
+			pstmt2.setString(3, qna.getQna_content());
+			pstmt2.setInt(5, 0); // 참조글번호(글쓰기는 글번호와 동일하게 사용)
+			pstmt2.setInt(6, 0); // 들여쓰기레벨
+			pstmt2.setInt(7, 0); // 순서번
+			pstmt2.setString(8, qna.getMember_id());
 			
 			insertCount = pstmt2.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - insertBoard()");
+			System.out.println("SQL 구문 오류! - insertQna()");
 			e.printStackTrace();
 		} finally {
 			// DB 자원 반환
@@ -459,7 +455,6 @@ public class QnaDAO {
 		
 		return insertCount;
 	}
-	
 	
 }
 

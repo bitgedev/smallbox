@@ -1,140 +1,70 @@
 package vo;
-/*
- * mvc_board5 데이터베이스 생성 및 board 테이블 정의
-    CREATE DATABASE mvc_board5;
-    use mvc_board5
-    
-	CREATE TABLE board (
-		board_num INT PRIMARY KEY,
-		board_name VARCHAR(20) NOT NULL,
-		board_pass VARCHAR(16) NOT NULL,
-		board_subject VARCHAR(50) NOT NULL,
-		board_content VARCHAR(2000) NOT NULL,
-		board_file VARCHAR(200) NOT NULL,
-		board_real_file VARCHAR(200) NOT NULL,
-		board_re_ref INT NOT NULL,
-		board_re_lev INT NOT NULL,
-		board_re_seq INT NOT NULL,
-		board_readcount INT DEFAULT 0,
-		board_date DATETIME
-	);
- * 
- * mvc_board3 데이터베이스의 board 테이블(게시판) 1개 레코드(= 1개 게시물) 정보를 저장하는
- * Bean 클래스(DTO or VO) 정의
- * 
- */
 
 import java.sql.Timestamp;
 
 public class QnaBean {
-	// board 테이블 컬럼에 대응하는 멤버변수 선언
-	private int board_num;
-	private String board_name;
-	private String board_pass;
-	private String board_subject;
-	private String board_content;
-	private String board_file; // 원본 파일명
-	private String board_real_file; // 실제 업로드 될 파일명(중복 처리된 파일명)
-	private int board_re_ref; // 원본글 번호
-	private int board_re_lev; // 들여쓰기 레벨
-	private int board_re_seq; // 순서번호
-	private int board_readcount;
-	private Timestamp board_date; // java.sql.TimeStamp
-	
-	public int getBoard_num() {
-		return board_num;
+	// qna 테이블 컬럼에 대응하는 멤버변수 선언
+	private int qna_idx;
+	private String qna_subject;
+	private String qna_content;
+	private Timestamp qna_date;
+	private int qna_re_ref;
+	private int qna_re_lev;
+	private int qna_re_seq;
+	private String member_id;
+	public int getQna_idx() {
+		return qna_idx;
 	}
-	public void setBoard_num(int board_num) {
-		this.board_num = board_num;
+	public void setQna_idx(int qna_idx) {
+		this.qna_idx = qna_idx;
 	}
-	public String getBoard_name() {
-		return board_name;
+	public String getQna_subject() {
+		return qna_subject;
 	}
-	public void setBoard_name(String board_name) {
-		this.board_name = board_name;
+	public void setQna_subject(String qna_subject) {
+		this.qna_subject = qna_subject;
 	}
-	public String getBoard_pass() {
-		return board_pass;
+	public String getQna_content() {
+		return qna_content;
 	}
-	public void setBoard_pass(String board_pass) {
-		this.board_pass = board_pass;
+	public void setQna_content(String qna_content) {
+		this.qna_content = qna_content;
 	}
-	public String getBoard_subject() {
-		return board_subject;
+	public Timestamp getQna_date() {
+		return qna_date;
 	}
-	public void setBoard_subject(String board_subject) {
-		this.board_subject = board_subject;
+	public void setQna_date(Timestamp qna_date) {
+		this.qna_date = qna_date;
 	}
-	public String getBoard_content() {
-		return board_content;
+	public int getQna_re_ref() {
+		return qna_re_ref;
 	}
-	public void setBoard_content(String board_content) {
-		this.board_content = board_content;
+	public void setQna_re_ref(int qna_re_ref) {
+		this.qna_re_ref = qna_re_ref;
 	}
-	public String getBoard_file() {
-		return board_file;
+	public int getQna_re_lev() {
+		return qna_re_lev;
 	}
-	public void setBoard_file(String board_file) {
-		this.board_file = board_file;
+	public void setQna_re_lev(int qna_re_lev) {
+		this.qna_re_lev = qna_re_lev;
 	}
-	public String getBoard_real_file() {
-		return board_real_file;
+	public int getQna_re_seq() {
+		return qna_re_seq;
 	}
-	public void setBoard_real_file(String board_real_file) {
-		this.board_real_file = board_real_file;
+	public void setQna_re_seq(int qna_re_seq) {
+		this.qna_re_seq = qna_re_seq;
 	}
-	public int getBoard_re_ref() {
-		return board_re_ref;
+	public String getMember_id() {
+		return member_id;
 	}
-	public void setBoard_re_ref(int board_re_ref) {
-		this.board_re_ref = board_re_ref;
+	public void setMember_id(String member_id) {
+		this.member_id = member_id;
 	}
-	public int getBoard_re_lev() {
-		return board_re_lev;
-	}
-	public void setBoard_re_lev(int board_re_lev) {
-		this.board_re_lev = board_re_lev;
-	}
-	public int getBoard_re_seq() {
-		return board_re_seq;
-	}
-	public void setBoard_re_seq(int board_re_seq) {
-		this.board_re_seq = board_re_seq;
-	}
-	public int getBoard_readcount() {
-		return board_readcount;
-	}
-	public void setBoard_readcount(int board_readcount) {
-		this.board_readcount = board_readcount;
-	}
-	public Timestamp getBoard_date() {
-		return board_date;
-	}
-	public void setBoard_date(Timestamp board_date) {
-		this.board_date = board_date;
-	}
-	
 	@Override
 	public String toString() {
-		return "BoardBean [board_num=" + board_num + ", board_name=" + board_name + ", board_pass=" + board_pass
-				+ ", board_subject=" + board_subject + ", board_content=" + board_content + ", board_file=" + board_file
-				+ ", board_real_file=" + board_real_file + ", board_re_ref=" + board_re_ref + ", board_re_lev="
-				+ board_re_lev + ", board_re_seq=" + board_re_seq + ", board_readcount=" + board_readcount
-				+ ", board_date=" + board_date + "]";
+		return "QnaBean [qna_idx=" + qna_idx + ", qna_subject=" + qna_subject + ", qna_content=" + qna_content
+				+ ", qna_date=" + qna_date + ", qna_re_ref=" + qna_re_ref + ", qna_re_lev=" + qna_re_lev
+				+ ", qna_re_seq=" + qna_re_seq + ", member_id=" + member_id + "]";
 	}
-	
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
