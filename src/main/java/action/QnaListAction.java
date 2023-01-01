@@ -14,12 +14,12 @@ public class QnaListAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("BoardListAction");
+		System.out.println("QnaListAction");
 		
 		ActionForward forward = null;
 		
-		// BoardListService 객체를 통해 게시물 목록 조회 후
-		// 조회 결과(List 객체)를 request 객체를 통해 qna_board_list.jsp 페이지로 전달
+		// QnaListService 객체를 통해 게시물 목록 조회 후
+		// 조회 결과(List 객체)를 request 객체를 통해 qna_list.jsp 페이지로 전달
 		// ---------------------------------------------------------------------------
 		// 페이징 처리를 위한 변수 선언
 		int listLimit = 10; // 한 페이지에서 표시할 게시물 목록을 10개로 제한
@@ -40,18 +40,18 @@ public class QnaListAction implements Action {
 			keyword = "";
 		}
 		// ---------------------------------------------------------
-		// BoardListService 클래스 인스턴스 생성
+		// QnaListService 클래스 인스턴스 생성
 		QnaListService service = new QnaListService();
-		// BoardListService 객체의 getBoardList() 메서드를 호출하여 게시물 목록 조회
-		// => 파라미터 : 검색어, 시작행번호, 목록갯수   리턴타입 : List<BoardBean>(boardList)
-		List<QnaBean> boardList = service.getBoardList(keyword, startRow, listLimit);
+		// QnaListService 객체의 getQnaList() 메서드를 호출하여 게시물 목록 조회
+		// => 파라미터 : 검색어, 시작행번호, 목록갯수   리턴타입 : List<QnaBean>(qnaList)
+		List<QnaBean> qnaList = service.selectQnaList(keyword, startRow, listLimit);
 		
 		// ---------------------------------------------------------
 		// 페이징 처리
 		// 한 페이지에서 표시할 페이지 목록(번호) 갯수 계산
-		// 1. BoardListService - selectBoardListCount() 메서드를 호출하여 전체 게시물 수 조회(페이지 목록 계산에 사용)
+		// 1. QnaListService - selectQnaListCount() 메서드를 호출하여 전체 게시물 수 조회(페이지 목록 계산에 사용)
 		// => 파라미터 : 검색어   리턴타입 : int(listCount)
-		int listCount = service.getBoardListCount(keyword);
+		int listCount = service.selectQnaListCount(keyword);
 //			System.out.println("총 게시물 수 : " + listCount);
 		
 		// 2. 한 페이지에서 표시할 페이지 목록 갯수 설정
@@ -77,13 +77,13 @@ public class QnaListAction implements Action {
 		PageInfo pageInfo = new PageInfo(listCount, pageListLimit, maxPage, startPage, endPage);
 		// ----------------------------------------------------------------------
 		// 글목록(List 객체)과 페이징정보(PageInfo 객체)를 request 객체에 저장 - setAttribute()
-		request.setAttribute("boardList", boardList);
+		request.setAttribute("qnaList", qnaList);
 		request.setAttribute("pageInfo", pageInfo);
 		
-		// ActionForward 객체 생성 후 board/qna_board_list.jsp 페이지 포워딩 설정
+		// ActionForward 객체 생성 후 qna/qna_list.jsp 페이지 포워딩 설정
 		// => URL 및 request 객체 유지 : Dispatch 방식
 		forward = new ActionForward();
-		forward.setPath("board/qna_board_list.jsp");
+		forward.setPath("qna/qna_list.jsp");
 		forward.setRedirect(false); // 생략 가능
 		
 		return forward;

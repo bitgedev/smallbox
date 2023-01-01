@@ -55,7 +55,7 @@ public class MypageFrontController extends HttpServlet {
 			action = new QnaWriteProAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnadList.me")) {
+		} else if(command.equals("/QnaList.me")) {
 			action = new QnaListAction();
 			forward = action.execute(request, response);
 			
@@ -70,18 +70,6 @@ public class MypageFrontController extends HttpServlet {
 			
 		} else if(command.equals("/QnaDeletePro.me")) {
 			action = new QnaDeleteProAction();
-			forward = action.execute(request, response);
-			
-		} else if(command.equals("/QnaModifyForm.me")) {
-			// 글 수정 폼 비즈니스 작업 요청
-			// QnaModifyFormAction 의 execute() 메서드 호출
-			action = new QnaModifyFormAction();
-			forward = action.execute(request, response);
-			
-		} else if(command.equals("/QnaModifyPro.me")) {
-			// 글 수정 비즈니스 작업 요청
-			// QnaModifyProAction 의 execute() 메서드 호출
-			action = new QnaModifyProAction();
 			forward = action.execute(request, response);
 			
 		} else if(command.equals("/QnaReplyForm.me")) {

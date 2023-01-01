@@ -39,7 +39,7 @@ public class QnaDAO {
 		this.con = con;
 	}
 	// ----------------------------------------------------------------------------------
-	// 글쓰기 작업 수행
+	// 1:1문의 작업 수행
 	// => Service 로부터 전달받은 QnaBean 객체를 사용하여 INSERT 작업 수행
 	// => 파라미터 : QnaBean 객체   리턴타입 : int(insertCount)
 	public int insertQna(QnaBean qna) {
@@ -99,24 +99,24 @@ public class QnaDAO {
 	}
 	
 	// 글목록 조회
-	public List<QnaBean> selectBoardList(String keyword, int startRow, int listLimit) {
-		List<QnaBean> boardList = null;
+		public List<QnaBean> selectQnaList(String keyword, int startRow, int listLimit) {
+		List<QnaBean> qnaList = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			// board 테이블의 모든 레코드 조회
+			// qna 테이블의 모든 레코드 조회
 			// => 제목에 검색어를 포함하는 레코드 조회(WHERE subject LIKE '%검색어%')
 			//    (단, 쿼리에 직접 '%?%' 형태로 작성 시 ? 문자를 파라미터로 인식하지 못함
 			//    (따라서, setXXX() 메서드에서 문자열 결합으로 "%" + "검색어" + "%" 로 처리)
-			// => 정렬 : 참조글번호(board_re_ref) 기준 내림차순, 
-			//           순서번호(board_re_seq) 기준 오름차순
+			// => 정렬 : 참조글번호(qna_re_ref) 기준 내림차순, 
+			//           순서번호(qna_re_seq) 기준 오름차순
 			// => 조회 시작 레코드 행번호(startRow) 부터 listLimit 갯수(10) 만큼만 조회
-			String sql = "SELECT * FROM board "
-								+ "WHERE board_subject "
+			String sql = "SELECT * FROM qna "
+								+ "WHERE qna_subject "
 								+ "LIKE ? "
-								+ "ORDER BY board_re_ref DESC, board_re_seq ASC "
+								+ "ORDER BY qna_re_ref DESC, qna_re_seq ASC "
 								+ "LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
@@ -125,32 +125,28 @@ public class QnaDAO {
 			rs = pstmt.executeQuery();
 			
 			// 전체 목록 저장할 List 객체 생성
-			boardList = new ArrayList<QnaBean>();
+			qnaList = new ArrayList<QnaBean>();
 			
 			// 조회 결과가 있을 경우
 			while(rs.next()) {
-				// BoardBean 객체(board) 생성 후 조회 데이터 저장
-				QnaBean board = new QnaBean();
-				board.setBoard_num(rs.getInt("board_num"));
-				board.setBoard_name(rs.getString("board_name"));
-//				board.setBoard_pass(rs.getString("board_pass"));
-				board.setBoard_subject(rs.getString("board_subject"));
-				board.setBoard_content(rs.getString("board_content"));
-				board.setBoard_file(rs.getString("board_file"));
-				board.setBoard_real_file(rs.getString("board_real_file"));
-				board.setBoard_re_ref(rs.getInt("board_re_ref"));
-				board.setBoard_re_lev(rs.getInt("board_re_lev"));
-				board.setBoard_re_seq(rs.getInt("board_re_seq"));
-				board.setBoard_readcount(rs.getInt("board_readcount"));
-				board.setBoard_date(rs.getTimestamp("board_date"));
-//				System.out.println(board);
+				// QnaBean 객체(qna) 생성 후 조회 데이터 저장
+				QnaBean qna = new QnaBean();
+				qna.setQna_idx(rs.getInt("qna_idx"));
+				qna.setQna_subject(rs.getString("qna_subject"));
+				qna.setQna_content(rs.getString("qna_content"));
+				qna.setQna_date(rs.getTimestamp("qna_date"));
+				qna.setQna_re_ref(rs.getInt("qna_re_ref"));
+				qna.setQna_re_lev(rs.getInt("qna_re_lev"));
+				qna.setQna_re_seq(rs.getInt("qna_re_seq"));
+				qna.setMember_id(rs.getString("member_id"));
+//				System.out.println(qna);
 				
 				// 전체 목록 저장하는 List 객체에 1개 게시물 정보가 저장된 BoardBean 객체 추가
-				boardList.add(board);
+				qnaList.add(qna);
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("BoardDAO - selectBoardList()");
+			System.out.println("QnaDAO - selectQnaList()");
 			e.printStackTrace();
 		} finally {
 			// DB 자원 반환
@@ -158,24 +154,24 @@ public class QnaDAO {
 			JdbcUtil.close(pstmt);
 		}
 		
-		return boardList;
+		return qnaList;
 	}
 	
 	// 글목록 갯수 조회
-	public int selectBoardListCount(String keyword) {
+	public int selectQnaListCount(String keyword) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			// board 테이블의 모든 레코드 갯수 조회
+			// qna 테이블의 모든 레코드 갯수 조회
 			// => 제목에 검색어를 포함하는 레코드 조회(WHERE subject LIKE '%검색어%')
 			//    (단, 쿼리에 직접 '%?%' 형태로 작성 시 ? 문자를 파라미터로 인식하지 못함
 			//    (따라서, setXXX() 메서드에서 문자열 결합으로 "%" + "검색어" + "%" 로 처리)
 			String sql = "SELECT COUNT(*) "
-								+ "FROM board "
-								+ "WHERE board_subject LIKE ?";
+								+ "FROM qna "
+								+ "WHERE qna_subject LIKE ?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, "%" + keyword + "%");
 			rs = pstmt.executeQuery();
@@ -186,7 +182,7 @@ public class QnaDAO {
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("BoardDAO - selectBoardListCount()");
+			System.out.println("QnaDAO - selectQnaListCount()");
 			e.printStackTrace();
 		} finally {
 			// DB 자원 반환
@@ -198,7 +194,7 @@ public class QnaDAO {
 	}
 	
 	// 글 상세정보 조회
-	public QnaBean selectBoard(int board_num) {
+	public QnaBean selectQna(int board_num) {
 		QnaBean board = null;
 		
 		PreparedStatement pstmt = null;
@@ -243,65 +239,6 @@ public class QnaDAO {
 		return board;
 	}
 	
-	// 조회수 증가
-	public int updateReadcount(int board_num) {
-		int updateCount = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		try {
-			// 글번호가 일치하는 레코드의 조회수(readcount) 1만큼 증가
-			String sql = "UPDATE board "
-								+ "SET board_readcount=board_readcount+1 "
-								+ "WHERE board_num=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_num);
-			updateCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("BoardDAO - updateReadcount()");
-			e.printStackTrace();
-		} finally {
-			// DB 자원 반환
-			JdbcUtil.close(pstmt);
-		}
-		
-		return updateCount;
-	}
-	
-	// 패스워드 일치 여부 확인
-	public boolean isBoardWriter(int board_num, String board_pass) {
-		boolean isBoardWriter = false;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			// board 테이블에서 글번호(board)가 일치하는 1개 레코드 조회
-			String sql = "SELECT * FROM board "
-								+ "WHERE board_num=? "
-								+ 		"AND board_pass=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_num);
-			pstmt.setString(2, board_pass);
-			rs = pstmt.executeQuery();
-			
-			// 조회 결과가 있을 경우
-			if(rs.next()) {
-				// isBoardWriter 값을 true 로 변경
-				isBoardWriter = true;
-			}
-			
-		} catch (SQLException e) {
-			System.out.println("BoardDAO - isBoardWriter()");
-			e.printStackTrace();
-		} finally {
-			// DB 자원 반환
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-		}
-		
-		return isBoardWriter;
-	}
-	
 	// 글 삭제
 	public int deleteBoard(int board_num) {
 		int deleteCount = 0;
@@ -326,56 +263,9 @@ public class QnaDAO {
 		return deleteCount;
 	}
 	
-	// 글 수정
-	public int updateBoard(QnaBean board) {
-		int updateCount = 0;
-		
-		PreparedStatement pstmt = null;
-		
-		try {
-			// board 테이블의 제목, 내용, 파일명을 변경(이름은 고정)
-			String sql = "UPDATE board"
-								+ " SET"
-								+ " 	board_subject = ?"
-								+ " 	, board_content = ?";
-			
-							// 단, 파일명(board_file)이 null 이 아닐 경우에만 파일명도 수정
-							// => 즉, 파일명을 수정하는 SET 절을 문장에 추가 결합
-							if(board.getBoard_file() != null) {
-								sql += ", board_file = ?"
-									+ " , board_real_file = ?";
-							}
-			
-					sql			+= " WHERE"
-								+ " 	board_num = ?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, board.getBoard_subject());
-			pstmt.setString(2, board.getBoard_content());
-			// 단, 파일명(board_file)이 null 이 아닐 경우에만 
-			// 파일명 파라미터를 교체하는 setXXX() 메서드 호출
-			// => 또한, null 이 아닐 때는 글번호의 파라미터번호가 5번, 아니면 3번 
-			if(board.getBoard_file() != null) {
-				pstmt.setString(3, board.getBoard_file());
-				pstmt.setString(4, board.getBoard_real_file());
-				pstmt.setInt(5, board.getBoard_num());
-			} else {
-				pstmt.setInt(3, board.getBoard_num());
-			}
-			
-			updateCount = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("BoardDAO - updateBoard()");
-			e.printStackTrace();
-		} finally {
-			// DB 자원 반환
-			JdbcUtil.close(pstmt);
-		}
-		
-		return updateCount;
-	}
 	
 	// 답글 쓰기
-	public int insertReplyBoard(QnaBean board) {
+		public int insertReplyBoard(QnaBean board) {
 		// INSERT 작업 결과를 리턴받아 저장할 변수 선언
 		int insertCount = 0;
 		
