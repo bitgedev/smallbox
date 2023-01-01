@@ -194,41 +194,36 @@ public class QnaDAO {
 	}
 	
 	// 글 상세정보 조회
-	public QnaBean selectQna(int board_num) {
-		QnaBean board = null;
+	public QnaBean selectQna(int qna_idx) {
+		QnaBean qna = null;
 		
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		
 		try {
-			// board 테이블에서 글번호(board)가 일치하는 1개 레코드 조회
-			String sql = "SELECT * FROM board "
-								+ "WHERE board_num=?";
+			String sql = "SELECT * FROM qna "
+								+ "WHERE qna_idx=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_num);
+			pstmt.setInt(1, qna_idx);
 			rs = pstmt.executeQuery();
 			
 			// 조회 결과가 있을 경우
 			if(rs.next()) {
-				// BoardBean 객체(board) 생성 후 조회 데이터 저장
-				board = new QnaBean();
-				board.setBoard_num(rs.getInt("board_num"));
-				board.setBoard_name(rs.getString("board_name"));
-//				board.setBoard_pass(rs.getString("board_pass"));
-				board.setBoard_subject(rs.getString("board_subject"));
-				board.setBoard_content(rs.getString("board_content"));
-				board.setBoard_file(rs.getString("board_file"));
-				board.setBoard_real_file(rs.getString("board_real_file"));
-				board.setBoard_re_ref(rs.getInt("board_re_ref"));
-				board.setBoard_re_lev(rs.getInt("board_re_lev"));
-				board.setBoard_re_seq(rs.getInt("board_re_seq"));
-				board.setBoard_readcount(rs.getInt("board_readcount"));
-				board.setBoard_date(rs.getTimestamp("board_date"));
-//				System.out.println(board);
+				// QnaBean 객체(qna) 생성 후 조회 데이터 저장
+				qna = new QnaBean();
+				qna.setQna_idx(rs.getInt("qna_idx"));
+				qna.setQna_subject(rs.getString("qna_subject"));
+				qna.setQna_content(rs.getString("qna_content"));
+				qna.setQna_date(rs.getTimestamp("qna_date"));
+				qna.setQna_re_ref(rs.getInt("qna_re_ref"));
+				qna.setQna_re_lev(rs.getInt("qna_re_lev"));
+				qna.setQna_re_seq(rs.getInt("qna_re_seq"));
+				qna.setMember_id(rs.getString("member_id"));
+//				System.out.println(qna);
 			}
 			
 		} catch (SQLException e) {
-			System.out.println("BoardDAO - selectBoard()");
+			System.out.println("QnaDAO - selectQna()");
 			e.printStackTrace();
 		} finally {
 			// DB 자원 반환
@@ -236,7 +231,7 @@ public class QnaDAO {
 			JdbcUtil.close(pstmt);
 		}
 		
-		return board;
+		return qna;
 	}
 	
 	// 글 삭제
