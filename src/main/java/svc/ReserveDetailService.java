@@ -21,8 +21,8 @@ public class ReserveDetailService {
 		// 공통작업-3. ReserveDAO 객체에 Connection 객체 전달하기
 		dao.setConnection(con);
 		
-		// BoardDAO 의 selectReserve() 메서드 호출하여 게시물 상세 정보 조회 작업 수행
-		// => 파라미터 : 글번호    리턴타입 : BoardBean(board)
+		// ReserveDAO 의 selectReserve() 메서드 호출하여 게시물 상세 정보 조회 작업 수행
+		// => 파라미터 : 글번호    리턴타입 : ReserveBean(reserve)
 		reserve = dao.selectReserve(res_num);
 		
 		// 공통작업-4. Connection 객체 반환하기

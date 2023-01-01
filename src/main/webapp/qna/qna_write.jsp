@@ -9,7 +9,7 @@
 <body>
 	<header>
 		<!-- Login, Join 링크 표시 영역 -->
-		<jsp:include page="/inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 게시판 등록 -->
 	<section id="writeForm">

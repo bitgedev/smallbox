@@ -10,7 +10,7 @@
 <body>
 	<header>
 		<!-- Login, Join 링크 표시 영역 -->
-		<jsp:include page="/inc/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<!-- 게시판 글 삭제 -->
 	<h2>1:1 문의내역 삭제</h2>

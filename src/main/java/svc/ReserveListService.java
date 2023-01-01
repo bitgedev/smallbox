@@ -9,8 +9,8 @@ import vo.ReserveBean;
 
 public class ReserveListService {
 
-	// 게시물 목록 조회 - getBoardList()
-	// => 파라미터 : 아이디   리턴타입 : List<BoardBean>(boardList)
+	// 게시물 목록 조회 - getReserveList()
+	// => 파라미터 : 아이디   리턴타입 : List<ReserveBean>(reserveList)
 	public List<ReserveBean> getReserveList(String sId) {
 		List<ReserveBean> reserveList = null;
 		

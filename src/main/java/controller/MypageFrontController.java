@@ -13,9 +13,6 @@ import action.Action;
 import action.QnaDeleteProAction;
 import action.QnaDetailAction;
 import action.QnaListAction;
-import action.QnaListAction;
-import action.QnaModifyFormAction;
-import action.QnaModifyProAction;
 import action.QnaReplyFormAction;
 import action.QnaReplyProAction;
 import action.QnaWriteProAction;
@@ -24,10 +21,10 @@ import action.ReserveListAction;
 import vo.ActionForward;
 
 @WebServlet("*.my")
-public class MypageFrontController extends HttpServlet {
+public class MyPageFrontController extends HttpServlet {
 	// GET or POST 방식 요청을 공통으로 처리할 doProcess() 메서드 정의
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MypageFrontController - doProcess()");
+		System.out.println("MyPageFrontController - doProcess()");
 		
 		request.setCharacterEncoding("UTF-8");
 		
@@ -37,8 +34,13 @@ public class MypageFrontController extends HttpServlet {
 		// 공통으로 사용할 변수 선언
 		ActionForward forward = null; // 포워딩 정보를 저장할 ActionForward 타입 변수
 		Action action = null;
+		
+		if(command.equals("/MyPageMain.my")) { // 마이페이지 메인으로 이동
+			forward = new ActionForward();
+			forward.setPath("mypage/mypage_main.jsp");
+			forward.setRedirect(false);
 			
-		if (command.equals("/Reserved.my")) {
+		} else if (command.equals("/Reserved.my")) {
 			action = new ReserveListAction();
 			forward = action.execute(request, response);
 			
@@ -49,7 +51,7 @@ public class MypageFrontController extends HttpServlet {
 		} else if(command.equals("/QnaWriteForm.my")) {
 			forward = new ActionForward();
 			forward.setPath("qna/qna_write.jsp");
-			forward.setRedirect(false); // 생략도 가능
+			forward.setRedirect(false);
 			
 		} else if(command.equals("/QnaWritePro.my")) {
 			action = new QnaWriteProAction();
