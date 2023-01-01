@@ -6,56 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Qna 게시판</title>
-<!-- 외부 CSS 가져오기 -->
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#articleForm {
-		width: 500px;
-		height: 550px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		border: 1px solid black;
-		border-collapse: collapse; 
-	 	width: 500px;
-	}
-	
-	th {
-		text-align: center;
-	}
-	
-	td {
-		width: 150px;
-		text-align: center;
-	}
-	
-	#basicInfoArea {
-		height: 70px;
-		text-align: center;
-	}
-	
-	#articleContentArea {
-		background: orange;
-		margin-top: 20px;
-		height: 350px;
-		text-align: center;
-		overflow: auto;
-		white-space: pre-line;
-	}
-	
-	#commandList {
-		margin: auto;
-		width: 500px;
-		text-align: center;
-	}
-</style>
+<title>1:1문의 게시판</title>
 </head>
 <body>
 	<header>
@@ -64,7 +15,7 @@
 	</header>
 	<!-- 게시판 상세내용 보기 -->
 	<section id="articleForm">
-		<h2>글 상세내용 보기</h2>
+		<h2>문의 상세내용 보기</h2>
 		<section id="basicInfoArea">
 			<table border="1">
 			<tr><th width="70">제 목</th><td colspan="3" >${board.board_subject }</td></tr>

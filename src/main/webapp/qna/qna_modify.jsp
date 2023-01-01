@@ -4,41 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Qna 게시판</title>
-<!-- 외부 CSS 가져오기 -->
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#modifyForm {
-		width: 500px;
-		height: 500px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h1 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 450px;
-	}
-	
-	.td_left {
-		width: 150px;
-		background: orange;
-		text-align: center;
-	}
-	
-	.td_right {
-		width: 300px;
-		background: skyblue;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
-</style>
+<title>1:1문의 게시판</title>
 </head>
 <body>
 	<header>

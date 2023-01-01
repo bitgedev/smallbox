@@ -7,62 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Qna 게시판</title>
-<!-- 외부 CSS 가져오기 -->
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#listForm {
-		width: 1024px;
-		max-height: 610px;
-		margin: auto;
-	}
-	
-	h2 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 1024px;
-	}
-	
-	#tr_top {
-		background: orange;
-		text-align: center;
-	}
-	
-	table td {
-		text-align: center;
-	}
-	
-	#subject {
-		text-align: left;
-		padding-left: 20px;
-	}
-	
-	#pageList {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#emptyArea {
-		margin: auto;
-		width: 1024px;
-		text-align: center;
-	}
-	
-	#buttonArea {
-		margin: auto;
-		width: 1024px;
-		text-align: right;
-		margin-top: 10px;
-	}
-	
-	a {
-		text-decoration: none;
-	}
-</style>
+<title>1:1문의 게시판</title>
 </head>
 <body>
 	<header>

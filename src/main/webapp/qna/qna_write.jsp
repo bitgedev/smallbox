@@ -4,41 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Qna 게시판</title>
-<!-- 외부 CSS 가져오기 -->
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#writeForm {
-		width: 500px;
-		height: 450px;
-		border: 1px solid red;
-		margin: auto;
-	}
-	
-	h1 {
-		text-align: center;
-	}
-	
-	table {
-		margin: auto;
-		width: 450px;
-	}
-	
-	.td_left {
-		width: 150px;
-		background: orange;
-		text-align: center;
-	}
-	
-	.td_right {
-		width: 300px;
-		background: skyblue;
-	}
-	
-	#commandCell {
-		text-align: center;
-	}
-</style>
+<title>1:1문의 게시판</title>
 </head>
 <body>
 	<header>
@@ -47,7 +13,7 @@
 	</header>
 	<!-- 게시판 등록 -->
 	<section id="writeForm">
-		<h1>게시판 글 등록</h1>
+		<h1>1:1문의 등록</h1>
 		<!-- 파일 업로드 기능 사용 위해 enctype 속성 설정 => cos.jar 라이브러리 필요 -->
 		<form action="QnaWritePro.bo" name="qnaForm" method="post" enctype="multipart/form-data">
 			<table>
