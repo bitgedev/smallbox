@@ -41,10 +41,10 @@
 		</section>
 	</section>
 	<section id="commandList">
-		<input type="button" value="답변" onclick="location.href='BoardReplyForm.bo?board_num=${param.board_num}&pageNum=${param.pageNum }'">
-		<input type="button" value="수정" onclick="location.href='BoardModifyForm.bo?board_num=${param.board_num}&pageNum=${param.pageNum }'">
-		<input type="button" value="삭제" onclick="location.href='BoardDeleteForm.bo?board_num=${param.board_num}&pageNum=${param.pageNum }'">
-		<input type="button" value="목록" onclick="location.href='BoardList.bo?pageNum=${param.pageNum}'">
+		<input type="button" value="답변" onclick="location.href='BoardReplyForm.me?board_num=${param.board_num}&pageNum=${param.pageNum }'">
+		<input type="button" value="수정" onclick="location.href='BoardModifyForm.me?board_num=${param.board_num}&pageNum=${param.pageNum }'">
+		<input type="button" value="삭제" onclick="location.href='BoardDeleteForm.me?board_num=${param.board_num}&pageNum=${param.pageNum }'">
+		<input type="button" value="목록" onclick="location.href='BoardList.me?pageNum=${param.pageNum}'">
 	</section>
 </body>
 </html>

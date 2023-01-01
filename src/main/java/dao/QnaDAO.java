@@ -235,20 +235,20 @@ public class QnaDAO {
 	}
 	
 	// 글 삭제
-	public int deleteBoard(int board_num) {
+	public int deleteQna(int qna_idx) {
 		int deleteCount = 0;
 		
 		PreparedStatement pstmt = null;
 		
 		try {
 			// 글번호에 해당하는 레코드 삭제
-			String sql = "DELETE FROM board "
-								+ "WHERE board_num=?";
+			String sql = "DELETE FROM qna "
+								+ "WHERE qna_idx=?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, board_num);
+			pstmt.setInt(1, qna_idx);
 			deleteCount = pstmt.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("BoardDAO - deleteBoard()");
+			System.out.println("QnaDAO - deleteQna()");
 			e.printStackTrace();
 		} finally {
 			// DB 자원 반환
@@ -260,14 +260,14 @@ public class QnaDAO {
 	
 	
 	// 답글 쓰기
-		public int insertReplyBoard(QnaBean board) {
+	public int insertReplyQna(QnaBean qna) {
 		// INSERT 작업 결과를 리턴받아 저장할 변수 선언
 		int insertCount = 0;
 		
 		// 데이터베이스 작업에 필요한 변수 선언
 		PreparedStatement pstmt = null, pstmt2 = null;
 		ResultSet rs = null;
-		
+	
 		try {
 			// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(board_num) 중 가장 큰 번호 조회
 			// => 조회 결과 + 1 값을 새 글 번호로 지정하고, 조회 결과가 없으면 기본값 1 로 설정
@@ -282,7 +282,7 @@ public class QnaDAO {
 				board_num = rs.getInt(1) + 1;
 			}
 			
-//			System.out.println("새 글 번호 : " + board_num);
+	//			System.out.println("새 글 번호 : " + board_num);
 			// ----------------------------------------------------------------------------
 			int ref = board.getBoard_re_ref(); // 원본글의 참조글번호
 			int lev = board.getBoard_re_lev(); // 원본글의 들여쓰기레벨
@@ -327,19 +327,19 @@ public class QnaDAO {
 			pstmt2.setInt(11, 0); // 조회수
 			
 			insertCount = pstmt2.executeUpdate();
-			
-		} catch (SQLException e) {
-			System.out.println("SQL 구문 오류! - insertReplyBoard()");
-			e.printStackTrace();
-		} finally {
-			// DB 자원 반환
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
-			JdbcUtil.close(pstmt2);
-		}
 		
-		return insertCount;
+	} catch (SQLException e) {
+		System.out.println("SQL 구문 오류! - insertReplyBoard()");
+		e.printStackTrace();
+	} finally {
+		// DB 자원 반환
+		JdbcUtil.close(rs);
+		JdbcUtil.close(pstmt);
+		JdbcUtil.close(pstmt2);
 	}
+	
+	return insertCount;
+}
 	
 }
 

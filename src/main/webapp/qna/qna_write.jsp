@@ -15,7 +15,7 @@
 	<section id="writeForm">
 		<h1>1:1문의 등록</h1>
 		<!-- 파일 업로드 기능 사용 위해 enctype 속성 설정 => cos.jar 라이브러리 필요 -->
-		<form action="QnaWritePro.bo" name="qnaForm" method="post" enctype="multipart/form-data">
+		<form action="QnaWritePro.me" name="qnaForm" method="post" enctype="multipart/form-data">
 			<table>
 				<tr>
 					<td class="td_left"><label for="member_id">글쓴이</label></td>

@@ -15,7 +15,7 @@
 	<!-- 게시판 글 삭제 -->
 	<h2>1:1 문의내역 삭제</h2>
 	<section id="passForm">
-		<form action="QnaDeletePro.bo" name="deleteForm" method="post">
+		<form action="QnaDeletePro.me" name="deleteForm" method="post">
 			<!-- 입력받지 않은 글번호, 페이지번호 hidden 속성으로 전달 -->
 			<input type="hidden" name="board_num" value="${param.qna_idx }" >
 			<input type="hidden" name="pageNum" value="${param.pageNum }" >

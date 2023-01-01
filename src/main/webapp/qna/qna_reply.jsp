@@ -14,7 +14,7 @@
 	<!-- 게시판 답글 작성 -->
 	<section id="replyForm">
 		<h1>회원문의 답글 작성</h1>
-		<form action="BoardReplyPro.bo" name="boardForm" method="post" enctype="multipart/form-data">
+		<form action="BoardReplyPro.me" name="boardForm" method="post" enctype="multipart/form-data">
 			<!-- 입력받지 않은 글번호, 페이지번호 hidden 속성으로 전달 -->
 			<input type="hidden" name="board_num" value="${param.board_num }" >
 			<input type="hidden" name="pageNum" value="${param.pageNum }" >
