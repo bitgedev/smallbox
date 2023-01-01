@@ -269,35 +269,35 @@ public class QnaDAO {
 		ResultSet rs = null;
 	
 		try {
-			// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(board_num) 중 가장 큰 번호 조회
+			// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(qna_idx) 중 가장 큰 번호 조회
 			// => 조회 결과 + 1 값을 새 글 번호로 지정하고, 조회 결과가 없으면 기본값 1 로 설정
 			// => MySQL 구문의 MAX() 함수 사용(SELECT MAX(컬럼명) FROM 테이블명)
-			int board_num = 1; // 새 글 번호
+			int qna_idx = 1; // 새 글 번호
 			
-			String sql = "SELECT MAX(board_num) FROM board";
+			String sql = "SELECT MAX(qna_idx) FROM qna";
 			pstmt = con.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
 			if(rs.next()) {
-				board_num = rs.getInt(1) + 1;
+				qna_idx = rs.getInt(1) + 1;
 			}
 			
-	//			System.out.println("새 글 번호 : " + board_num);
+	//			System.out.println("새 글 번호 : " + qna_idx);
 			// ----------------------------------------------------------------------------
-			int ref = board.getBoard_re_ref(); // 원본글의 참조글번호
-			int lev = board.getBoard_re_lev(); // 원본글의 들여쓰기레벨
-			int seq = board.getBoard_re_seq(); // 원본글의 순서번호
+			int ref = qna.getQna_re_ref(); // 원본글의 참조글번호
+			int lev = qna.getQna_re_lev(); // 원본글의 들여쓰기레벨
+			int seq = qna.getQna_re_seq(); // 원본글의 순서번호
 			
 			// 기존 답글들에 대한 순서번호 증가 = UPDATE 구문
-			// => 원본글의 참조글번호(board_re_ref)와 같고
-			//    원본글의 순서번호(board_re_seq) 보다 큰 레코드들의
+			// => 원본글의 참조글번호(qna_re_ref)와 같고
+			//    원본글의 순서번호(qna_re_seq) 보다 큰 레코드들의
 			//    순서번호를 + 1 씩 증가시키기
-			sql = "UPDATE board"
+			sql = "UPDATE qna"
 					+ "		SET"
-					+ "			board_re_seq = board_re_seq + 1"
+					+ "			qna_re_seq = qna_re_seq + 1"
 					+ "		WHERE"
-					+ "			board_re_ref = ?"
-					+ "			AND board_re_seq > ?";
+					+ "			qna_re_ref = ?"
+					+ "			AND qna_re_seq > ?";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, ref);
 			pstmt2.setInt(2, seq);
@@ -312,24 +312,19 @@ public class QnaDAO {
 			// ------------------------------------------------------------
 			// 답글 INSERT
 			// => 글쓰기와 달리 ref, lev, seq 값은 설정된 값으로 변경
-			sql = "INSERT INTO board VALUES (?,?,?,?,?,?,?,?,?,?,?,now())";
+			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
 			pstmt2 = con.prepareStatement(sql);
-			pstmt2.setInt(1, board_num); // 글번호
-			pstmt2.setString(2, board.getBoard_name()); // 작성자
-			pstmt2.setString(3, board.getBoard_pass()); // 패스워드
-			pstmt2.setString(4, board.getBoard_subject()); // 제목
-			pstmt2.setString(5, board.getBoard_content()); // 내용
-			pstmt2.setString(6, board.getBoard_file()); // 원본파일명
-			pstmt2.setString(7, board.getBoard_real_file()); // 실제파일명
-			pstmt2.setInt(8, ref); // 참조글번호
-			pstmt2.setInt(9, lev); // 들여쓰기레벨
-			pstmt2.setInt(10, seq); // 순서번호
-			pstmt2.setInt(11, 0); // 조회수
-			
+			pstmt2.setInt(1, qna_idx);
+			pstmt2.setString(2, qna.getQna_subject());
+			pstmt2.setString(3, qna.getQna_content());
+			pstmt2.setInt(4, ref);
+			pstmt2.setInt(5, lev);
+			pstmt2.setInt(6, seq);
+			pstmt2.setString(7,  qna.getMember_id());
 			insertCount = pstmt2.executeUpdate();
 		
 	} catch (SQLException e) {
-		System.out.println("SQL 구문 오류! - insertReplyBoard()");
+		System.out.println("SQL 구문 오류! - insertReplyQna()");
 		e.printStackTrace();
 	} finally {
 		// DB 자원 반환

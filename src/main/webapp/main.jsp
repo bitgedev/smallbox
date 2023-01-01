@@ -6,18 +6,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="css/default.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#body {
-		text-align: center;
-		background: #e6f7ff;
-	}
-</style>
 </head>
 <body id="body">
 	<header>
 		<!--  Login, Join -->
-		<jsp:include page="test/top.jsp"></jsp:include>
+		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
 	<article>
 		<h1>SMALL BOX</h1>

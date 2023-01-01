@@ -46,7 +46,7 @@ public class QnaDeleteProAction implements Action {
 			out.println("</script>");
 		} else { // 삭제 성공 시
 			forward = new ActionForward();
-			forward.setPath("QnaList.me?pageNum=" + request.getParameter("pageNum"));
+			forward.setPath("QnaList.my?pageNum=" + request.getParameter("pageNum"));
 			forward.setRedirect(true);
 		}
 		

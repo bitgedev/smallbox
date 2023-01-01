@@ -51,9 +51,9 @@ public class QnaWriteProAction implements Action {
 				// ActionForward 객체 생성하지 않음!! => null 값 전달
 			} else { // 성공 시
 				// 포워딩 정보 저장을 위한 ActionForward 객체 생성
-				// 포워딩 경로 : QnaList.bo, 포워딩 방식 : Redirect
+				// 포워딩 경로 : QnaList.my, 포워딩 방식 : Redirect
 				forward = new ActionForward();
-				forward.setPath("QnaList.bo");
+				forward.setPath("QnaList.my");
 				forward.setRedirect(true);
 			}
 		

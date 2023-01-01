@@ -55,7 +55,7 @@
 						${qna.qna_subject }
 					</a>
 				</td>
-				<td>${qna.member_idx }</td>
+				<td>${qna.member_id }</td>
 				<td>
 					<%-- JSTL 의 fmt 라이브러리를 활용하여 날짜 표현 형식 변경 --%>
 					<%-- fmt:formatDate - Date 타입 날짜 형식 변경 --%>
@@ -71,7 +71,7 @@
 			<input type="text" name="keyword">
 			<input type="submit" value="검색">
 			&nbsp;&nbsp;
-			<input type="button" value="글쓰기" onclick="location.href='QnaWriteForm.me'" />
+			<input type="button" value="글쓰기" onclick="location.href='QnaWriteForm.my'" />
 		</form>
 	</section>
 	<section id="pageList">
@@ -82,7 +82,7 @@
 		-->
 		<c:choose>
 			<c:when test="${pageNum > 1}">
-				<input type="button" value="이전" onclick="location.href='QnaList.me?pageNum=${pageNum - 1}'">
+				<input type="button" value="이전" onclick="location.href='QnaList.my?pageNum=${pageNum - 1}'">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="이전">
@@ -97,7 +97,7 @@
 					${i }
 				</c:when>
 				<c:otherwise>
-					<a href="QnaList.me?pageNum=${i }">${i }</a>
+					<a href="QnaList.my?pageNum=${i }">${i }</a>
 				</c:otherwise>
 			</c:choose>
 		</c:forEach>
@@ -105,7 +105,7 @@
 		<!-- 현재 페이지 번호(pageNum)가 총 페이지 수보다 작을 때만 [다음] 링크 동작 -->
 		<c:choose>
 			<c:when test="${pageNum < pageInfo.maxPage}">
-				<input type="button" value="다음" onclick="location.href='QnaList.me?pageNum=${pageNum + 1}'">
+				<input type="button" value="다음" onclick="location.href='QnaList.my?pageNum=${pageNum + 1}'">
 			</c:when>
 			<c:otherwise>
 				<input type="button" value="다음">

@@ -13,23 +13,23 @@ public class QnaReplyFormAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		ActionForward forward = null;
 		
-		int board_num = Integer.parseInt(request.getParameter("board_num"));
-//		System.out.println(board_num);
+		int qna_idx = Integer.parseInt(request.getParameter("qna_idx"));
+//		System.out.println(qna_idx);
 		
-		// BoardDetailService 클래스의 인스턴스 생성 및 getBoard() 메서드를 호출하여
+		// QnaDetailService 클래스의 인스턴스 생성 및 getQna() 메서드를 호출하여
 		// 글 상세정보 조회 작업 요청
-		// => 파라미터 : 글번호, 조회수 증가 여부(false)   리턴타입 : BoardBean(board)
+		// => 파라미터 : 글번호   리턴타입 : QnaBean(qna)
 		QnaDetailService service = new QnaDetailService();
-		QnaBean board = service.getBoard(board_num, false);
-//		System.out.println(board);
+		QnaBean qna = service.getQna(qna_idx);
+//		System.out.println(qna);
 		
 		// 뷰페이지로 데이터 전달을 위해 request 객체에 저장
-		request.setAttribute("board", board);
+		request.setAttribute("qna", qna);
 		
-		// ActionForward 객체를 통해 qna_board_reply.jsp 페이지 포워딩 설정
+		// ActionForward 객체를 통해 qna_reply.jsp 페이지 포워딩 설정
 		// => URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩
 		forward = new ActionForward();
-		forward.setPath("board/qna_board_reply.jsp");
+		forward.setPath("qna/qna_reply.jsp");
 		forward.setRedirect(false);
 		
 		return forward;

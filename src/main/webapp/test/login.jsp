@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="top.jsp"></jsp:include>
+		<jsp:include page="/inc/top.jsp"></jsp:include>
 	</header>
 	<h1>로그인</h1>
 	<form action="MemberLoginPro.sm" method="post">

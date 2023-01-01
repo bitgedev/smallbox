@@ -23,7 +23,7 @@ import action.ReserveCancelProAction;
 import action.ReserveListAction;
 import vo.ActionForward;
 
-@WebServlet("*.me")
+@WebServlet("*.my")
 public class MypageFrontController extends HttpServlet {
 	// GET or POST 방식 요청을 공통으로 처리할 doProcess() 메서드 정의
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -38,47 +38,47 @@ public class MypageFrontController extends HttpServlet {
 		ActionForward forward = null; // 포워딩 정보를 저장할 ActionForward 타입 변수
 		Action action = null;
 			
-		if (command.equals("/Reserved.me")) {
+		if (command.equals("/Reserved.my")) {
 			action = new ReserveListAction();
 			forward = action.execute(request, response);
 			
-		} else if (command.equals("/ReserveCancel.me")) {
+		} else if (command.equals("/ReserveCancel.my")) {
 			action = new ReserveCancelProAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaWriteForm.me")) {
+		} else if(command.equals("/QnaWriteForm.my")) {
 			forward = new ActionForward();
 			forward.setPath("qna/qna_write.jsp");
 			forward.setRedirect(false); // 생략도 가능
 			
-		} else if(command.equals("/QnaWritePro.me")) {
+		} else if(command.equals("/QnaWritePro.my")) {
 			action = new QnaWriteProAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaList.me")) {
+		} else if(command.equals("/QnaList.my")) {
 			action = new QnaListAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaDetail.me")) {
+		} else if(command.equals("/QnaDetail.my")) {
 			action = new QnaDetailAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaDeleteForm.me")) {
+		} else if(command.equals("/QnaDeleteForm.my")) {
 			forward = new ActionForward();
 			forward.setPath("qna/qna_delete.jsp");
 			forward.setRedirect(false); // 생략도 가능
 			
-		} else if(command.equals("/QnaDeletePro.me")) {
+		} else if(command.equals("/QnaDeletePro.my")) {
 			action = new QnaDeleteProAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaReplyForm.me")) {
+		} else if(command.equals("/QnaReplyForm.my")) {
 			// 답글 작성 폼 비즈니스 작업 요청
 			// QnaReplyFormAction 의 execute() 메서드 호출
 			action = new QnaReplyFormAction();
 			forward = action.execute(request, response);
 			
-		} else if(command.equals("/QnaReplyPro.me")) {
+		} else if(command.equals("/QnaReplyPro.my")) {
 			// 답글 작성 비즈니스 작업 요청
 			// QnaReplyProAction 의 execute() 메서드 호출
 			action = new QnaReplyProAction();
