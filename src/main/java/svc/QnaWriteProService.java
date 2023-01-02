@@ -2,10 +2,8 @@ package svc;
 
 import java.sql.Connection;
 
-import dao.BoardDAO;
 import dao.QnaDAO;
 import db.JdbcUtil;
-import vo.BoardBean;
 import vo.QnaBean;
 
 public class QnaWriteProService {

@@ -8,7 +8,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"/>
 	</header>
 	<h1>관리자페이지</h1>
 		<h3><a href="MemberList.ad">회원관리</a></h3>

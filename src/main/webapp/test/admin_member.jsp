@@ -9,7 +9,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 <h1>회원 관리</h1>
 	<table border="1">
