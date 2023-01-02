@@ -34,7 +34,7 @@ public class ReserveListAction implements Action {
 		// ----------------------------------------------------------------------
 		request.setAttribute("reserveList", reserveList);
 		
-		// ActionForward 객체 생성 후 board/qna_board_list.jsp 페이지 포워딩 설정
+		// ActionForward 객체 생성 후 mypage/reserved_list.jsp 페이지 포워딩 설정
 		// => URL 및 request 객체 유지 : Dispatch 방식
 		forward = new ActionForward();
 		forward.setPath("reserved_list.jsp");

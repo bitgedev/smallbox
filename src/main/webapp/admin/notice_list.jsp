@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header>
-		<jsp:include page="/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	<h1>공지 목록</h1>
 				<c:choose>

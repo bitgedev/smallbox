@@ -10,7 +10,7 @@
 </header>
 <body>
 	<header>
-		<jsp:include page="../test/top.jsp"></jsp:include>
+		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
   <!-- 로그인 화면 폼 -->
     <div id = "sform">
