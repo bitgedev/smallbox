@@ -61,19 +61,12 @@
    			<li class="side-li" style="font-size:20px;margin-top: 20px;">
    				<p><a href="MyPageMain.my">마이페이지</a></p>
    				<p><a href="#">회원정보수정</a></p>
-   				<p><a href="#">예매내역</a></p>
+   				<p><a href="Reserved.my">예매내역</a></p>
    				<p><a href="CouponList.my">쿠폰함</a></p>
    				<p><a href="MovieLikeList.my">찜목록</a></p>
    				<p><a href="ReviewList.my">리뷰내역</a></p>
-   				<p><a href="#">문의내역</a></p>
+   				<p><a href="QnaList.my">문의내역</a></p>
    				<p><a href="#">회원탈퇴</a></p>
-   				<!-- <h3><a href="MovieLikeList.my?member_id=${sessionScope.sId }">찜목록</a></h3>
-		<h3><a href="CouponList.my?member_id=${sessionScope.sId }">쿠폰함</a></h3>
-		<h3><a href="ReviewList.my?member_id=${sessionScope.sId }">리뷰관리</a></h3>
-		<h3><a href="MemberModifyForm.sm?member_id=${sessionScope.sId }">회원 정보</a></h3>
-		<h3><a href="Reserved.my?member_id=${sessionScope.sId }">예매 내역(목록)</a></h3>
-		<h3><a href="QnaList.my?member_id=${sessionScope.sId }">문의 내역</a></h3>
-   				 -->
    			</li>
    		</ul>
    </aside>
