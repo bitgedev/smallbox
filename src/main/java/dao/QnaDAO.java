@@ -68,19 +68,19 @@ public class QnaDAO {
 			}
 			System.out.println("새 글 번호 : " + qna_idx);
 			// --------------------------------------------------------------------------------
-			// 전달받은 데이터(BoardBean 객체)를 사용하여 INSERT 작업 수행
-			// => 참조글번호(board_re_ref)는 새 글 번호와 동일한 번호로 지정
-			// => 들여쓰기레벨(board_re_lev)과 순서번호(board_re_seq)는 0으로 지정
+			// 전달받은 데이터(QnaBean 객체)를 사용하여 INSERT 작업 수행
+			// => 참조글번호(qna_re_ref)는 새 글 번호와 동일한 번호로 지정
+			// => 들여쓰기레벨(qna_re_lev)과 순서번호(qna_re_seq)는 0으로 지정
 			// => INSERT 구문 실행 후 리턴값을 insertCount 변수에 저장
 			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, qna_idx); // 글번호
-			pstmt2.setString(2, qna.getQna_subject());
-			pstmt2.setString(3, qna.getQna_content());
-			pstmt2.setInt(5, 0); // 참조글번호(글쓰기는 글번호와 동일하게 사용)
-			pstmt2.setInt(6, 0); // 들여쓰기레벨
-			pstmt2.setInt(7, 0); // 순서번
-			pstmt2.setString(8, qna.getMember_id());
+			pstmt2.setString(2, qna.getQna_subject()); //제목
+			pstmt2.setString(3, qna.getQna_content()); //내용
+			pstmt2.setInt(4, qna_idx); // 참조글번호(글쓰기는 글번호와 동일하게 사용)
+			pstmt2.setInt(5, 0); // 들여쓰기레벨
+			pstmt2.setInt(6, 0); // 순서번호
+			pstmt2.setString(7, qna.getMember_id());
 			
 			insertCount = pstmt2.executeUpdate();
 			
@@ -99,7 +99,7 @@ public class QnaDAO {
 	}
 	
 	// 글목록 조회
-		public List<QnaBean> selectQnaList(String keyword, int startRow, int listLimit) {
+		public List<QnaBean> selectQnaList(String sId, int startRow, int listLimit) {
 		List<QnaBean> qnaList = null;
 		
 		PreparedStatement pstmt = null;
@@ -107,19 +107,15 @@ public class QnaDAO {
 		
 		try {
 			// qna 테이블의 모든 레코드 조회
-			// => 제목에 검색어를 포함하는 레코드 조회(WHERE subject LIKE '%검색어%')
-			//    (단, 쿼리에 직접 '%?%' 형태로 작성 시 ? 문자를 파라미터로 인식하지 못함
-			//    (따라서, setXXX() 메서드에서 문자열 결합으로 "%" + "검색어" + "%" 로 처리)
 			// => 정렬 : 참조글번호(qna_re_ref) 기준 내림차순, 
 			//           순서번호(qna_re_seq) 기준 오름차순
 			// => 조회 시작 레코드 행번호(startRow) 부터 listLimit 갯수(10) 만큼만 조회
 			String sql = "SELECT * FROM qna "
-								+ "WHERE qna_subject "
-								+ "LIKE ? "
+								+ "WHERE member_id = ? "
 								+ "ORDER BY qna_re_ref DESC, qna_re_seq ASC "
 								+ "LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(1, sId);
 			pstmt.setInt(2, startRow);
 			pstmt.setInt(3, listLimit);
 			rs = pstmt.executeQuery();
@@ -158,7 +154,7 @@ public class QnaDAO {
 	}
 	
 	// 글목록 갯수 조회
-	public int selectQnaListCount(String keyword) {
+	public int selectQnaListCount(String sId) {
 		int listCount = 0;
 		
 		PreparedStatement pstmt = null;
@@ -166,14 +162,11 @@ public class QnaDAO {
 		
 		try {
 			// qna 테이블의 모든 레코드 갯수 조회
-			// => 제목에 검색어를 포함하는 레코드 조회(WHERE subject LIKE '%검색어%')
-			//    (단, 쿼리에 직접 '%?%' 형태로 작성 시 ? 문자를 파라미터로 인식하지 못함
-			//    (따라서, setXXX() 메서드에서 문자열 결합으로 "%" + "검색어" + "%" 로 처리)
 			String sql = "SELECT COUNT(*) "
 								+ "FROM qna "
-								+ "WHERE qna_subject LIKE ?";
+								+ "WHERE member_id = ?";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setString(1, sId);
 			rs = pstmt.executeQuery();
 			
 			// 조회 결과가 있을 경우 listCount 변수에 저장

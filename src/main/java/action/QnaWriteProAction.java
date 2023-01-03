@@ -1,15 +1,12 @@
 package action;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Enumeration;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 import svc.QnaWriteProService;
 import vo.ActionForward;
@@ -21,17 +18,27 @@ public class QnaWriteProAction implements Action {
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("QnaWriteProAction");
 		
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		ActionForward forward = null;
 		
 		try {
-			
 			// 전달받은 파라미터 데이터를 QnaBean 클래스 인스턴스 생성 후 저장
 			QnaBean qna = new QnaBean();
-			qna.setMember_id(request.getParameter("member_id"));
-			qna.setQna_subject(request.getParameter("qna_subject"));
-			qna.setQna_content(request.getParameter("qna_content"));
 			
-//			System.out.println(qna);
+			String sId = request.getParameter("sId");
+			String subject = request.getParameter("subject");
+			String content = request.getParameter("content");
+			
+			qna.setMember_id(sId);
+			qna.setQna_subject(subject);
+			qna.setQna_content(content);
+			System.out.println(qna);
 			
 			// -------------------------------------------------------------------------
 			// QnaWriteProService 클래스 인스턴스 생성 후
@@ -45,7 +52,7 @@ public class QnaWriteProAction implements Action {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();
 				out.println("<script>");
-				out.println("alert('Qna 글쓰기 실패!')");
+				out.println("alert('1:1 문의 등록 실패!')");
 				out.println("history.back()");
 				out.println("</script>");
 				// ActionForward 객체 생성하지 않음!! => null 값 전달

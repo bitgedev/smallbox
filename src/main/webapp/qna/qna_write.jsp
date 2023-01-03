@@ -16,14 +16,15 @@
 		<h1>1:1문의 등록</h1>
 		<!-- 파일 업로드 기능 사용 위해 enctype 속성 설정 => cos.jar 라이브러리 필요 -->
 		<form action="QnaWritePro.my" name="qnaForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="member_id" value="${sessionScope.sId }">
 			<table>
 				<tr>
-					<td class="td_left"><label for="member_id">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="qna_name" value="${sessionScope.sId }" required="required" /></td>
+					<td class="td_left"><label for="member_id">작성자</label></td>
+					<td class="td_right"><input type="text" name="member_id" value="${sessionScope.sId }" readonly /></td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="qna_subject">제목</label></td>
-					<td class="td_right"><input type="text" name="board_subject" required="required" /></td>
+					<td class="td_right"><input type="text" name="qna_subject" required="required" /></td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="qna_content">내용</label></td>

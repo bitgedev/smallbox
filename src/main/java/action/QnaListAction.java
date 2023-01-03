@@ -32,26 +32,21 @@ public class QnaListAction implements Action {
 		int startRow = (pageNum - 1) * listLimit; // 조회 시작 행번호 계산
 //		System.out.println("startRow = " + startRow);
 		// ---------------------------------------------------------
-		// 파라미터로 전달받은 검색어(keyword) 가져와서 변수에 저장
-		String keyword = request.getParameter("keyword");
-
-		// 만약, 전달받은 검색어가 null 이면 널스트링으로 변경(일반 목록일 경우 전체 검색 수행)
-		if(keyword == null) {
-			keyword = "";
-		}
+		// 파라미터로 전달받은 아이디(sId) 가져와서 변수에 저장
+		String sId = request.getParameter("sId");
 		// ---------------------------------------------------------
 		// QnaListService 클래스 인스턴스 생성
 		QnaListService service = new QnaListService();
 		// QnaListService 객체의 getQnaList() 메서드를 호출하여 게시물 목록 조회
 		// => 파라미터 : 검색어, 시작행번호, 목록갯수   리턴타입 : List<QnaBean>(qnaList)
-		List<QnaBean> qnaList = service.selectQnaList(keyword, startRow, listLimit);
+		List<QnaBean> qnaList = service.selectQnaList(sId, startRow, listLimit);
 		
 		// ---------------------------------------------------------
 		// 페이징 처리
 		// 한 페이지에서 표시할 페이지 목록(번호) 갯수 계산
-		// 1. QnaListService - selectQnaListCount() 메서드를 호출하여 전체 게시물 수 조회(페이지 목록 계산에 사용)
-		// => 파라미터 : 검색어   리턴타입 : int(listCount)
-		int listCount = service.selectQnaListCount(keyword);
+		// 1. QnaListService - selectQnaListCount() 메서드를 호출하여 아이디가 sId인 회원의 게시물 수 조회(페이지 목록 계산에 사용)
+		// => 파라미터 : 아이디   리턴타입 : int(listCount)
+		int listCount = service.selectQnaListCount(sId);
 //			System.out.println("총 게시물 수 : " + listCount);
 		
 		// 2. 한 페이지에서 표시할 페이지 목록 갯수 설정

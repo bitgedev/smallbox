@@ -25,7 +25,7 @@
 			<table>
 				<tr>
 					<td class="td_left"><label for="member_id">글쓴이</label></td>
-					<td class="td_right"><input type="text" name="qna_name" value="관리자" required="required"></td>
+					<td class="td_right"><input type="text" name="qna_name" value="관리자"></td>
 				</tr>
 				<tr>
 					<td class="td_left"><label for="qna_subject">제목</label></td>

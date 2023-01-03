@@ -35,7 +35,7 @@ public class ReserveDetailAction implements Action {
 		// ActionForward 객체를 통해 reserved_list.jsp 페이지 포워딩 설정
 		// => URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩
 		forward = new ActionForward();
-		forward.setPath("reserved_list.jsp");
+		forward.setPath("mypage/reserved_list.jsp");
 		forward.setRedirect(false);
 		
 		return forward;
