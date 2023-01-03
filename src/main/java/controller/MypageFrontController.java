@@ -24,22 +24,30 @@ import vo.ActionForward;
 public class MyPageFrontController extends HttpServlet {
 	// GET or POST 방식 요청을 공통으로 처리할 doProcess() 메서드 정의
 	protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("MyPageFrontController - doProcess()");
-		
 		request.setCharacterEncoding("UTF-8");
-		
 		String command = request.getServletPath();
-		System.out.println("command : " + command);
-		
-		// 공통으로 사용할 변수 선언
+
 		ActionForward forward = null; // 포워딩 정보를 저장할 ActionForward 타입 변수
 		Action action = null;
 		
-		if(command.equals("/MyPageMain.my")) { // 마이페이지 메인으로 이동
-			forward = new ActionForward();
-			forward.setPath("mypage/mypage_main.jsp");
-			forward.setRedirect(false);
-			
+		// ----------------------------------------------------------------------
+//		if(command.equals("/MyPageMain.my")) { // 마이페이지 메인으로 이동
+//			forward = new ActionForward();
+//			forward.setPath("mypage/mypage_main.jsp");
+//			forward.setRedirect(false);
+		if(command.equals("/MyPageMain.my")) { // 마이페이지 메인 이동 + 여러 정보 출력
+			action = new MyPageMainAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/MovieLikeList.my")) { // 마이페이지 - 찜 목록 출력
+ 			action = new MovieLikeListProAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/CouponList.my")) { // 마이페이지 - 쿠폰 목록 출력
+ 			action = new CouponListProAction();
+			forward = action.execute(request, response);
+		} else if(command.equals("/ReviewList.my")) { // 마이페이지 - 리뷰 목록 출력
+ 			action = new ReviewListProAction();
+			forward = action.execute(request, response);
+		//
 		} else if (command.equals("/Reserved.my")) {
 			action = new ReserveListAction();
 			forward = action.execute(request, response);

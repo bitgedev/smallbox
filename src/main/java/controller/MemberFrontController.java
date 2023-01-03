@@ -9,19 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import action.Action;
-import action.AdminMovieDetailProAction;
 import action.MemberJoinProAction;
-import action.MemberListAction;
-import action.MovieDeleteProAction;
-import action.MovieInsertProAction;
-import action.AdminMovieListProAction;
-import action.MovieModifyFormAction;
-import action.MovieModifyProAction;
+import action.MemberLoginProAction;
+import action.MemberLogoutProAction;
+import action.MemberModifyFormAction;
+import action.MemberModifyProAction;
+import action.Action;
 import vo.ActionForward;
 
-	@WebServlet("*.ad")
-	public class AdminFrontController extends HttpServlet {
+	@WebServlet("*.sm")
+	public class MemberFrontController extends HttpServlet {
 		// GET or POST 방식 요청을 공통으로 처리할 doProcess() 메서드 정의
 		protected void doProcess(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			
@@ -31,52 +28,48 @@ import vo.ActionForward;
 			// 공통으로 사용할 변수 선언
 			ActionForward forward = null; // 포워딩 정보를 저장할 ActionForward 타입 변수
 			Action action = null;
-			
-			// 관리자 페이지로 이동 -> ㅇㅋ
-			if (command.equals("/AdminMain.ad")) {
+				
+			if (command.equals("/MemberJoinForm.sm")) {
 				forward = new ActionForward();
-				forward.setPath("admin/admin.jsp");
+				forward.setPath("member/join_form.jsp");
 				forward.setRedirect(false); // 생략 가능
-			
-			// 영화 등록 폼으로 이동 -> ㅇㅋ
-			} else if (command.equals("/MovieInsertForm.ad")) {
+				
+			} else if (command.equals("/MemberJoinPro.sm")) {
+				action = new MemberJoinProAction();
+				forward = action.execute(request, response);
+				
+			} else if (command.equals("/MemberJoinResult.sm")) {
 				forward = new ActionForward();
-				forward.setPath("admin/admin_movie_insert.jsp");
+				forward.setPath("member/join_result.jsp");
 				forward.setRedirect(false); // 생략 가능
-			
-			// 영화 등록 비즈니스 작업 -> ㅇㅋ
-			} else if (command.equals("/MovieInsertPro.ad")) {
-				action = new MovieInsertProAction();
+				
+			} else if (command.equals("/MemberLoginForm.sm")) {
+				forward = new ActionForward();
+				forward.setPath("member/login.jsp");
+				forward.setRedirect(false); // 생략 가능
+				
+			} else if (command.equals("/MemberLoginPro.sm")) {
+				action = new MemberLoginProAction();
 				forward = action.execute(request, response);
-			
-			// 영화 목록 출력 비즈니스 작업 -> ㅇㅋ
-			} else if (command.equals("/AdminMovieList.ad")) {
-				action = new AdminMovieListProAction();
+				
+			} else if (command.equals("/MemberLogout.sm")) {
+				action = new MemberLogoutProAction();
 				forward = action.execute(request, response);
-			
-			// 영화 등록글 확인 비즈니스 작업 -> ㅇㅋ
-			} else if (command.equals("/AdminMovieDetailPro.ad")) {
-				action = new AdminMovieDetailProAction();
+				
+			} else if (command.equals("/FindIdForm.sm")) {
+				forward = new ActionForward();
+				forward.setPath("member/find_id_form.jsp");
+				forward.setRedirect(false); // 생략 가능
+				
+			} else if(command.equals("/MemberModifyForm.sm")) { //회원 정보 수정 폼
+				action = new MemberModifyFormAction();
 				forward = action.execute(request, response);
-			
-			// 영화 수정 폼 출력 비즈니스 작업 -> ㅇㅋ
-			} else if (command.equals("/MovieModifyForm.ad")) {
-				action = new MovieModifyFormAction();
+				
+			} else if (command.equals("/MemberModifyPro.sm")) { // 회원정보 수정 작업
+				action = new MemberModifyProAction();
 				forward = action.execute(request, response);
-			
-			// 영화 수정 비즈니스 작업 -> ㅇㅋ
-			} else if (command.equals("/MovieModifyPro.ad")) {
-				action = new MovieModifyProAction();
-				forward = action.execute(request, response);
-			
-			// 영화 삭제 비즈니스 작업 -> 뷰 페이지 만들기 귀찮은데 그냥 자바스크립트 태그로 알림창만 뜨게
-			} else if (command.equals("/MovieDeletePro.ad")) {
-				action = new MovieDeleteProAction();
-				forward = action.execute(request, response);
+				
 			}
-				
-	       // ------------------------------------------------- 관리자 영화 작업 끝!		
-				
 			
 			if(forward != null) {
 				// 2. Actionforward 객체에 저장된 포워딩 방식 판별
@@ -100,5 +93,6 @@ import vo.ActionForward;
 		protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 			doProcess(request, response);
 		}
+
 	}
 
