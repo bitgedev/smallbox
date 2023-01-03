@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import svc.ReserveListService;
 import vo.ActionForward;
@@ -16,13 +17,11 @@ public class ReserveListAction implements Action {
 		System.out.println("ReserveListAction");
 		
 		ActionForward forward = null;
-		// BoardListService 객체를 통해 게시물 목록 조회 후
-		// 조회 결과(List 객체)를 request 객체를 통해 qna_board_list.jsp 페이지로 전달
-		// ---------------------------------------------------------------------------
-		// 페이징 처리를 위한 변수 선언
 		// ---------------------------------------------------------
 		//아이디 가져와서 변수에 저장
-		String sId = request.getParameter("member_id");
+		// 세션에 저장해서 전달한 회원 아이디 받아오기
+		HttpSession session = request.getSession();
+		String sId = (String)session.getAttribute("sId");
 
 		// ---------------------------------------------------------
 		// BoardListService 클래스 인스턴스 생성
@@ -37,7 +36,7 @@ public class ReserveListAction implements Action {
 		// ActionForward 객체 생성 후 mypage/reserved_list.jsp 페이지 포워딩 설정
 		// => URL 및 request 객체 유지 : Dispatch 방식
 		forward = new ActionForward();
-		forward.setPath("mypage/reserved_list.jsp");
+		forward.setPath("mypage/mypage_reserved_list.jsp");
 		forward.setRedirect(false); // 생략 가능
 		
 		return forward;

@@ -60,7 +60,7 @@ public class ReserveCancelProAction implements Action {
 					out.println("</script>");
 				} else {//취소성공
 					forward = new ActionForward();
-					forward.setPath("Reserved.me?member_id="+sId);
+					forward.setPath("Reserved.my");
 					forward.setRedirect(false);
 				}
 			}
