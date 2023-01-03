@@ -1,6 +1,8 @@
 package dao;
 
 import java.sql.Connection;
+
+
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +15,7 @@ import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import com.mysql.cj.protocol.Resultset;
 
 import db.JdbcUtil;
+import vo.ActionForward;
 import vo.MemberBean;
 
 public class MemberDAO {
@@ -46,7 +49,7 @@ public class MemberDAO {
 			
 			if(rs.next()) {
 				member_idx = rs.getInt(1) +1;
-				sql = "INSERT INTO member VALUES(?, ?, ?, ?, ?, ?, now(), ?)";
+				sql = "INSERT INTO member VALUES(?, ?, ?, ?, ?, ?,now(), ?)";
 				pstmt2 = con.prepareStatement(sql);
 				pstmt2.setInt(1, member_idx);
 				pstmt2.setString(2, member.getMember_id());
@@ -129,7 +132,7 @@ public class MemberDAO {
 				member.setMember_phone(rs.getString("member_phone"));
 				member.setMember_join_date(rs.getDate("member_join_date"));
 				member.setMember_birth_date(rs.getDate("member_birth_date"));
-				member.setMember_point(rs.getString("member_point"));
+				
 				//List 객체에 MemberBean 객체 추가
 				memberList.add(member);
 			}
@@ -147,6 +150,8 @@ public class MemberDAO {
 	// 회원 정보 수정 updateMember()
 	public boolean updateMember(MemberBean member, boolean isChangePass) {
 		int updateMember = 0;
+		
+		
 		try {
 			// 패스워드 변경 여부에 따른 각 SQL 구문 작성
 			String sql = "";
@@ -212,7 +217,7 @@ public class MemberDAO {
 				member.setMember_passwd(rs.getString("member_passwd"));
 				member.setMember_email(rs.getString("member_email"));
 				member.setMember_phone(rs.getString("member_phone"));
-				System.out.println(member);
+//				System.out.println(member);
 				
 			}
 		} catch (SQLException e) {
@@ -222,7 +227,7 @@ public class MemberDAO {
 			JdbcUtil.close(pstmt);
 		}
 		
-		return member; 
+		return member;
 	} // 회원 목록 끝
 		
 		
