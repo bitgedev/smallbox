@@ -34,6 +34,7 @@ public class QnaListAction implements Action {
 		// ---------------------------------------------------------
 		// 파라미터로 전달받은 아이디(sId) 가져와서 변수에 저장
 		String sId = request.getParameter("sId");
+		System.out.println("id test"+sId);
 		// ---------------------------------------------------------
 		// QnaListService 클래스 인스턴스 생성
 		QnaListService service = new QnaListService();

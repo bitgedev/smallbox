@@ -66,21 +66,21 @@ public class QnaDAO {
 				// (만약, 게시물이 존재하지 않을 경우 DB 에서 NULL 로 표기, rs.next() 가 false)
 				qna_idx = rs.getInt(1) + 1; // 기존 게시물 번호 중 가장 큰 번호(= 조회 결과) + 1
 			}
-			System.out.println("새 글 번호 : " + qna_idx);
+//			System.out.println("새 글 번호 : " + qna_idx);
 			// --------------------------------------------------------------------------------
 			// 전달받은 데이터(QnaBean 객체)를 사용하여 INSERT 작업 수행
 			// => 참조글번호(qna_re_ref)는 새 글 번호와 동일한 번호로 지정
 			// => 들여쓰기레벨(qna_re_lev)과 순서번호(qna_re_seq)는 0으로 지정
 			// => INSERT 구문 실행 후 리턴값을 insertCount 변수에 저장
-			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
+			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,0,0,?)";
 			pstmt2 = con.prepareStatement(sql);
 			pstmt2.setInt(1, qna_idx); // 글번호
 			pstmt2.setString(2, qna.getQna_subject()); //제목
 			pstmt2.setString(3, qna.getQna_content()); //내용
 			pstmt2.setInt(4, qna_idx); // 참조글번호(글쓰기는 글번호와 동일하게 사용)
-			pstmt2.setInt(5, 0); // 들여쓰기레벨
-			pstmt2.setInt(6, 0); // 순서번호
-			pstmt2.setString(7, qna.getMember_id());
+//			pstmt2.setInt(5, 0); // 들여쓰기레벨
+//			pstmt2.setInt(6, 0); // 순서번호
+			pstmt2.setString(5, qna.getMember_id());
 			
 			insertCount = pstmt2.executeUpdate();
 			

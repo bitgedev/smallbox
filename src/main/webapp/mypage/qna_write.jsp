@@ -93,7 +93,7 @@
 			<div class="commandCell">
 				<button type="submit" style="float:right">문의접수</button>&nbsp;&nbsp;
 			</div>
-		</form>
+	</form>
 	</section>
 </main>
   
