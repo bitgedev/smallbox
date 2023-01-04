@@ -21,30 +21,23 @@ public class QnaWriteProAction implements Action {
 		
 		HttpSession session = request.getSession();
 		String member_id = (String)session.getAttribute("sId");
-		
-		String subject = request.getParameter("qna_subject");
-		String content = request.getParameter("qna_content");
+		String qna_subject = request.getParameter("qna_subject");
+		String qna_content = request.getParameter("qna_content");
 //		System.out.println("아이디테스트 : " + member_id);
 		
 		try {
-			request.setCharacterEncoding("UTF-8");
-			// 전달받은 파라미터 데이터를 QnaBean 클래스 인스턴스 생성 후 저장
 			QnaBean qna = new QnaBean();
-			
-
-			
 			qna.setMember_id(member_id);
-			qna.setQna_subject(subject);
-			qna.setQna_content(content);
-			System.out.println("qna_subject="+subject);
+			qna.setQna_subject(qna_subject);
+			qna.setQna_content(qna_content);
 			
+			System.out.println("qna : "+qna);
 			// -------------------------------------------------------------------------
 			// QnaWriteProService 클래스 인스턴스 생성 후
 			// registQna() 메서드를 호출하여 글쓰기 작업 요청
 			// => 파라미터 : QnaBean 객체   리턴타입 : boolean(isWriteSuccess)
 			QnaWriteProService service = new QnaWriteProService();
 			boolean isWriteSuccess = service.registQna(qna);
-			
 			// 글쓰기 요청 처리 결과 판별
 			if(!isWriteSuccess) { // 실패 시
 				response.setContentType("text/html; charset=UTF-8");
