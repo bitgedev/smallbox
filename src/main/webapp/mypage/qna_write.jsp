@@ -77,17 +77,17 @@
 	
 	<h2 style="margin-left:50px">1:1 문의하기<hr></h2>
 	<form action="QnaWritePro.my" name="qnaForm" method="post" enctype="multipart/form-data" style="margin-left:50px">
-			<div class="title"><label for="qna_subject">제목</label> 
+			<div class="title">제목
 			<em style="color:red ">*</em>
 			<br>
 			<input type="text" name="qna_subject" style="width:100%;" required="required" />
 			</div>
 			
-			<div class="sub"><label for="qna_content">문의사항</label> 
+			<div class="sub">문의사항
 			<em style="color:red ">*</em>
 			<br>
-			<textarea id="qna_content" placeholder="문의내용에 개인정보(이름,연락처,카드번호 등)가 포함되지 않도록 유의하시기 바랍니다.
-회원로그인 후 문의작성시 나의 문의내역을 통해 답변을 확인하실 수 있습니다." name="qna_content" maxlength="550" cols="40" rows="15" required="required"></textarea>
+			<textarea name="qna_content" maxlength="550" cols="40" rows="15" required="required" placeholder="문의내용에 개인정보(이름,연락처,카드번호 등)가 포함되지 않도록 유의하시기 바랍니다.
+회원로그인 후 문의작성시 나의 문의내역을 통해 답변을 확인하실 수 있습니다."></textarea>
 			</div>
 			
 			<div class="commandCell">

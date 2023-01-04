@@ -71,7 +71,7 @@ public class MyPageFrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		} else if(command.equals("/QnaWriteForm.my")) { // 마이페이지 - 1:1문의 작성
 			forward = new ActionForward();
-			forward.setPath("qna/qna_write.jsp");
+			forward.setPath("mypage/qna_write.jsp");
 			forward.setRedirect(false);
 		} else if(command.equals("/QnaWritePro.my")) { // 마이페이지 - 1:1문의 작성 작업
 			action = new QnaWriteProAction();
@@ -84,7 +84,7 @@ public class MyPageFrontController extends HttpServlet {
 			forward = action.execute(request, response);
 		} else if(command.equals("/QnaDeleteForm.my")) { // 마이페이지 - 1:1문의 삭제
 			forward = new ActionForward();
-			forward.setPath("qna/qna_delete.jsp");
+			forward.setPath("mypage/qna_delete.jsp");
 			forward.setRedirect(false); // 생략도 가능
 		} else if(command.equals("/QnaDeletePro.my")) { // 마이페이지 - 1:1문의 내역 삭제
 			action = new QnaDeleteProAction();

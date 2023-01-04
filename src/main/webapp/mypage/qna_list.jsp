@@ -46,7 +46,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>1:1 문의내역</h2>
+          <h2>1:1 문의내역${sessionScope.sId }</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li><a href="MyPageMain.my">MyPage</a></li>

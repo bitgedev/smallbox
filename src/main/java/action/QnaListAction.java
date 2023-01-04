@@ -1,9 +1,11 @@
 package action;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import svc.QnaListService;
 import vo.ActionForward;
@@ -17,6 +19,9 @@ public class QnaListAction implements Action {
 		System.out.println("QnaListAction");
 		
 		ActionForward forward = null;
+		
+		HttpSession session = request.getSession();
+		String member_id = (String)session.getAttribute("sId");
 		
 		// QnaListService 객체를 통해 게시물 목록 조회 후
 		// 조회 결과(List 객체)를 request 객체를 통해 qna_list.jsp 페이지로 전달
@@ -33,21 +38,20 @@ public class QnaListAction implements Action {
 //		System.out.println("startRow = " + startRow);
 		// ---------------------------------------------------------
 		// 파라미터로 전달받은 아이디(sId) 가져와서 변수에 저장
-		String sId = request.getParameter("sId");
-		System.out.println("id test"+sId);
+//		System.out.println("id test : "+member_id);
 		// ---------------------------------------------------------
 		// QnaListService 클래스 인스턴스 생성
 		QnaListService service = new QnaListService();
 		// QnaListService 객체의 getQnaList() 메서드를 호출하여 게시물 목록 조회
 		// => 파라미터 : 검색어, 시작행번호, 목록갯수   리턴타입 : List<QnaBean>(qnaList)
-		List<QnaBean> qnaList = service.selectQnaList(sId, startRow, listLimit);
+		List<QnaBean> qnaList = service.selectQnaList(member_id, startRow, listLimit);
 		
 		// ---------------------------------------------------------
 		// 페이징 처리
 		// 한 페이지에서 표시할 페이지 목록(번호) 갯수 계산
 		// 1. QnaListService - selectQnaListCount() 메서드를 호출하여 아이디가 sId인 회원의 게시물 수 조회(페이지 목록 계산에 사용)
 		// => 파라미터 : 아이디   리턴타입 : int(listCount)
-		int listCount = service.selectQnaListCount(sId);
+		int listCount = service.selectQnaListCount(member_id);
 //			System.out.println("총 게시물 수 : " + listCount);
 		
 		// 2. 한 페이지에서 표시할 페이지 목록 갯수 설정
@@ -79,7 +83,7 @@ public class QnaListAction implements Action {
 		// ActionForward 객체 생성 후 qna/qna_list.jsp 페이지 포워딩 설정
 		// => URL 및 request 객체 유지 : Dispatch 방식
 		forward = new ActionForward();
-		forward.setPath("qna/qna_list.jsp");
+		forward.setPath("mypage/qna_list.jsp");
 		forward.setRedirect(false); // 생략 가능
 		
 		return forward;

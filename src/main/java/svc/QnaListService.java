@@ -11,7 +11,7 @@ public class QnaListService {
 
 	// 게시물 목록 조회 - selectQnaList()
 	// => 파라미터 : 아이디, 시작행번호, 목록갯수   리턴타입 : List<QnaBean>(boardList)
-	public List<QnaBean> selectQnaList(String sId, int startRow, int listLimit) {
+	public List<QnaBean> selectQnaList(String member_id, int startRow, int listLimit) {
 		List<QnaBean> qnaList = null;
 		
 		// 공통작업-1. Connection 객체 가져오기
@@ -25,7 +25,7 @@ public class QnaListService {
 		
 		// QnaDAO 객체의 selectQnaList() 메서드를 호출하여 글목록 조회 작업 수행
 		// => 파라미터 : 검색어, 시작행번호, 목록갯수   리턴타입 : List<QnaBean>(qnaList)
-		qnaList = dao.selectQnaList(sId, startRow, listLimit);
+		qnaList = dao.selectQnaList(member_id, startRow, listLimit);
 		
 		// 공통작업-4. Connection 객체 반환하기
 		JdbcUtil.close(con);
@@ -36,7 +36,7 @@ public class QnaListService {
 
 	// 목록 갯수 조회 - selectQnaListCount()
 	// => 파라미터 : 아이디   리턴타입 : int(listCount)
-	public int selectQnaListCount(String sId) {
+	public int selectQnaListCount(String member_id) {
 		int listCount = 0;
 		
 		// 공통작업-1. Connection 객체 가져오기
@@ -50,7 +50,7 @@ public class QnaListService {
 		
 		// QnaDAO 객체의 selectQnaListCount() 메서드를 호출하여 글목록 갯수 조회 작업 수행
 		// => 파라미터 : 검색어     리턴타입 : int(listCount)
-		listCount = dao.selectQnaListCount(sId);
+		listCount = dao.selectQnaListCount(member_id);
 		
 		// 공통작업-4. Connection 객체 반환하기
 		JdbcUtil.close(con);

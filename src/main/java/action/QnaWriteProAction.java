@@ -15,11 +15,16 @@ public class QnaWriteProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("QnaWriteProAction");
+		
 		ActionForward forward = null;
 		
 		HttpSession session = request.getSession();
 		String member_id = (String)session.getAttribute("sId");
-		System.out.println(member_id);
+		
+		String subject = request.getParameter("qna_subject");
+		String content = request.getParameter("qna_content");
+//		System.out.println("아이디테스트 : " + member_id);
 		
 		try {
 			request.setCharacterEncoding("UTF-8");
@@ -27,12 +32,11 @@ public class QnaWriteProAction implements Action {
 			QnaBean qna = new QnaBean();
 			
 
-			String subject = request.getParameter("qna_subject");
-			String content = request.getParameter("qna_content");
 			
+			qna.setMember_id(member_id);
 			qna.setQna_subject(subject);
 			qna.setQna_content(content);
-			System.out.println(qna);
+			System.out.println("qna_subject="+subject);
 			
 			// -------------------------------------------------------------------------
 			// QnaWriteProService 클래스 인스턴스 생성 후

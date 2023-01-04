@@ -34,7 +34,7 @@ public class QnaDetailAction implements Action {
 		// ActionForward 객체를 통해 qna_view.jsp 페이지 포워딩 설정
 		// => URL 유지 및 request 객체 유지를 위해 Dispatch 방식 포워딩
 		forward = new ActionForward();
-		forward.setPath("qna/qna_view.jsp");
+		forward.setPath("mypage/qna_view.jsp");
 		forward.setRedirect(false);
 		
 		return forward;
