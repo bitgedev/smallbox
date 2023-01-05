@@ -66,5 +66,4 @@ public class QnaBean {
 				+ ", qna_date=" + qna_date + ", qna_re_ref=" + qna_re_ref + ", qna_re_lev=" + qna_re_lev
 				+ ", qna_re_seq=" + qna_re_seq + ", member_id=" + member_id + "]";
 	}
-
 }

@@ -79,11 +79,18 @@
 	<h2 style="margin-left:50px">문의 상세보기</h2><hr>
 	<div>
 	<h2>qna_idx : ${param.qna_idx}</h2>
+	<h2>qna_idx : ${qna.qna_idx }</h2>
 	<h2>qna_re_ref : ${qna.qna_re_ref }</h2>
 	<h2>qna_re_lev : ${qna.qna_re_lev }</h2>
 	<h2>qna_re_seq : ${qna.qna_re_seq }</h2>
 	</div>
 		<section id="basicInfoArea">
+			<input type="hidden" name="qna_idx" value="${param.qna_idx }" >
+			<input type="hidden" name="pageNum" value="${param.pageNum }" >
+			<!-- 답글 작성에 필요한 정보도 hidden 속성으로 전달 -->
+			<input type="hidden" name="qna_re_ref" value="${qna.qna_re_ref }" >
+			<input type="hidden" name="qna_re_lev" value="${qna.qna_re_lev }" >
+			<input type="hidden" name="qna_re_seq" value="${qna.qna_re_seq }" >
 			<table>
 			<tr>
 				<th width="70">제 목</th><td colspan="3" >${qna.qna_subject }</td>
@@ -95,14 +102,18 @@
 			<tr>
 				<th colspan="4">내용</th><td colspan="4">${qna.qna_content }</td>
 			</tr>
-			</table>
+			</table><br>
 			<input type="button" value="답변" onclick="location.href='QnaReplyForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
 			<input type="button" value="삭제" onclick="location.href='QnaDeleteForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
 			<input type="button" value="목록" onclick="location.href='QnaList.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
-		</section>
 	</section>
-	</div>
-	</main>
+	</section>
+</div>
+</main>
+	<!-- 본문 -->
+	 <footer>
+		<jsp:include page="../inc/bottom.jsp"></jsp:include>
+	</footer>
 </body>
 </html>
 

@@ -20,6 +20,7 @@ import action.MyPageMainAction;
 import action.QnaDeleteProAction;
 import action.QnaDetailAction;
 import action.QnaListAction;
+import action.QnaReplyFormAction;
 import action.QnaReplyProAction;
 import action.QnaWriteProAction;
 import action.ReserveCancelProAction;
@@ -84,9 +85,8 @@ public class MyPageFrontController extends HttpServlet {
 		} else if(command.equals("/QnaReplyForm.my")) { //마이페이지 - 1:1문의 관리자 답변
 			// 답글 작성 폼 비즈니스 작업 요청
 			// QnaReplyFormAction 의 execute() 메서드 호출
-			forward = new ActionForward();
-			forward.setPath("mypage/qna_reply.jsp");
-			forward.setRedirect(false);
+			action = new QnaReplyFormAction();
+			forward = action.execute(request, response);
 		} else if(command.equals("/QnaReplyPro.my")) { //마이페이지 - 1:1문의 관리자 답변작업
 			// 답글 작성 비즈니스 작업 요청
 			// QnaReplyProAction 의 execute() 메서드 호출

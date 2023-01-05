@@ -41,7 +41,7 @@
 		<jsp:include page="../inc/top.jsp"></jsp:include>
 	</header>
 	
-	 <main id="main">
+	<main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
     <section class="breadcrumbs">
