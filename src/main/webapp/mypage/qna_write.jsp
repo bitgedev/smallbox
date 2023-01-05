@@ -30,6 +30,8 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/mypagemain.css" rel="stylesheet">
+  <!--   답글아이콘 -->
+  <script src="https://kit.fontawesome.com/5a85844b1b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
@@ -102,7 +104,7 @@
 		<jsp:include page="../inc/bottom.jsp"></jsp:include>
 	</footer>
 </body>
-
+</html>
 
 
 

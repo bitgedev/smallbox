@@ -8,9 +8,11 @@ import vo.QnaBean;
 
 public class QnaReplyProService {
 
-	// 글쓰기 작업 요청
+	// 답글 작업 요청
 	// => 파라미터 : QnaBean 객체   리턴타입 : boolean(isWriteSuccess)
 	public boolean registReplyQna(QnaBean qna) {
+		System.out.println("registReplyQna");
+		
 		boolean isWriteSuccess = false;
 		
 		// 공통작업-1. Connection 객체 가져오기

@@ -98,7 +98,7 @@ public class QnaDAO {
 		return insertCount; // Service 로 리턴
 	}
 	
-	// 글목록 조회
+	// 회원용 글목록 조회
 		public List<QnaBean> selectQnaList(String sId, int startRow, int listLimit) {
 		List<QnaBean> qnaList = null;
 		
@@ -152,8 +152,60 @@ public class QnaDAO {
 		
 		return qnaList;
 	}
+		// 관리자용 글목록 조회
+		public List<QnaBean> selectAdminQnaList(int startRow, int listLimit) {
+		List<QnaBean> qnaList = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			// qna 테이블의 모든 레코드 조회
+			// => 정렬 : 참조글번호(qna_re_ref) 기준 내림차순, 
+			//           순서번호(qna_re_seq) 기준 오름차순
+			// => 조회 시작 레코드 행번호(startRow) 부터 listLimit 갯수(10) 만큼만 조회
+			String sql = "SELECT * FROM qna "
+								+ "ORDER BY qna_re_ref DESC, qna_re_seq ASC "
+								+ "LIMIT ?,?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, listLimit);
+			rs = pstmt.executeQuery();
+			
+			// 전체 목록 저장할 List 객체 생성
+			qnaList = new ArrayList<QnaBean>();
+			
+			// 조회 결과가 있을 경우
+			while(rs.next()) {
+				// QnaBean 객체(qna) 생성 후 조회 데이터 저장
+				QnaBean qna = new QnaBean();
+				qna.setQna_idx(rs.getInt("qna_idx"));
+				qna.setQna_subject(rs.getString("qna_subject"));
+				qna.setQna_content(rs.getString("qna_content"));
+				qna.setQna_date(rs.getTimestamp("qna_date"));
+				qna.setQna_re_ref(rs.getInt("qna_re_ref"));
+				qna.setQna_re_lev(rs.getInt("qna_re_lev"));
+				qna.setQna_re_seq(rs.getInt("qna_re_seq"));
+				qna.setMember_id(rs.getString("member_id"));
+//						System.out.println(qna);
+				
+				// 전체 목록 저장하는 List 객체에 1개 게시물 정보가 저장된 BoardBean 객체 추가
+				qnaList.add(qna);
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("QnaDAO - selectQnaList()");
+			e.printStackTrace();
+		} finally {
+			// DB 자원 반환
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
+		}
+		
+		return qnaList;
+	}
 	
-	// 글목록 갯수 조회
+	// 회원용 글목록 갯수 조회
 	public int selectQnaListCount(String sId) {
 		int listCount = 0;
 		
@@ -185,47 +237,76 @@ public class QnaDAO {
 		
 		return listCount;
 	}
-	
-	// 글 상세정보 조회
-	public QnaBean selectQna(int qna_idx) {
-		QnaBean qna = null;
-		
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		
-		try {
-			String sql = "SELECT * FROM qna "
-								+ "WHERE qna_idx=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, qna_idx);
-			rs = pstmt.executeQuery();
+	// 관리자용 글목록 갯수 조회
+		public int selectAdminQnaListCount() {
+			int listCount = 0;
 			
-			// 조회 결과가 있을 경우
-			if(rs.next()) {
-				// QnaBean 객체(qna) 생성 후 조회 데이터 저장
-				qna = new QnaBean();
-				qna.setQna_idx(rs.getInt("qna_idx"));
-				qna.setQna_subject(rs.getString("qna_subject"));
-				qna.setQna_content(rs.getString("qna_content"));
-				qna.setQna_date(rs.getTimestamp("qna_date"));
-				qna.setQna_re_ref(rs.getInt("qna_re_ref"));
-				qna.setQna_re_lev(rs.getInt("qna_re_lev"));
-				qna.setQna_re_seq(rs.getInt("qna_re_seq"));
-				qna.setMember_id(rs.getString("member_id"));
-//				System.out.println(qna);
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				// qna 테이블의 모든 레코드 갯수 조회
+				String sql = "SELECT COUNT(*) "
+									+ "FROM qna";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				// 조회 결과가 있을 경우 listCount 변수에 저장
+				if(rs.next()) {
+					listCount = rs.getInt(1);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("QnaDAO - selecAdminQnaListCount()");
+				e.printStackTrace();
+			} finally {
+				// DB 자원 반환
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
 			}
 			
-		} catch (SQLException e) {
-			System.out.println("QnaDAO - selectQna()");
-			e.printStackTrace();
-		} finally {
-			// DB 자원 반환
-			JdbcUtil.close(rs);
-			JdbcUtil.close(pstmt);
+			return listCount;
 		}
-		
-		return qna;
-	}
+	// 글 상세정보 조회
+		public QnaBean selectQna(int qna_idx) {
+			QnaBean qna = null;
+			
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				String sql = "SELECT * FROM qna "
+									+ "WHERE qna_idx=?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, qna_idx);
+				rs = pstmt.executeQuery();
+				
+				// 조회 결과가 있을 경우
+				if(rs.next()) {
+					// QnaBean 객체(qna) 생성 후 조회 데이터 저장
+					qna = new QnaBean();
+					qna.setQna_idx(rs.getInt("qna_idx"));
+					qna.setQna_subject(rs.getString("qna_subject"));
+					qna.setQna_content(rs.getString("qna_content"));
+					qna.setQna_date(rs.getTimestamp("qna_date"));
+					qna.setQna_re_ref(rs.getInt("qna_re_ref"));
+					qna.setQna_re_lev(rs.getInt("qna_re_lev"));
+					qna.setQna_re_seq(rs.getInt("qna_re_seq"));
+					qna.setMember_id(rs.getString("member_id"));
+	//				System.out.println(qna);
+				}
+				
+			} catch (SQLException e) {
+				System.out.println("QnaDAO - selectQna()");
+				e.printStackTrace();
+			} finally {
+				// DB 자원 반환
+				JdbcUtil.close(rs);
+				JdbcUtil.close(pstmt);
+			}
+			
+			return qna;
+		}
 	
 	// 글 삭제
 	public int deleteQna(int qna_idx) {
@@ -252,82 +333,82 @@ public class QnaDAO {
 	}
 	
 	
-	// 답글 쓰기
-	public int insertReplyQna(QnaBean qna) {
-		// INSERT 작업 결과를 리턴받아 저장할 변수 선언
-		int insertCount = 0;
+		// 답글 쓰기
+		public int insertReplyQna(QnaBean qna) {
+			// INSERT 작업 결과를 리턴받아 저장할 변수 선언
+			int insertCount = 0;
+			
+			// 데이터베이스 작업에 필요한 변수 선언
+			PreparedStatement pstmt = null, pstmt2 = null;
+			ResultSet rs = null;
 		
-		// 데이터베이스 작업에 필요한 변수 선언
-		PreparedStatement pstmt = null, pstmt2 = null;
-		ResultSet rs = null;
-	
-		try {
-			// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(qna_idx) 중 가장 큰 번호 조회
-			// => 조회 결과 + 1 값을 새 글 번호로 지정하고, 조회 결과가 없으면 기본값 1 로 설정
-			// => MySQL 구문의 MAX() 함수 사용(SELECT MAX(컬럼명) FROM 테이블명)
-			int qna_idx = 1; // 새 글 번호
+			try {
+				// 새 글 번호 계산을 위해 기존 board 테이블의 모든 번호(qna_idx) 중 가장 큰 번호 조회
+				// => 조회 결과 + 1 값을 새 글 번호로 지정하고, 조회 결과가 없으면 기본값 1 로 설정
+				// => MySQL 구문의 MAX() 함수 사용(SELECT MAX(컬럼명) FROM 테이블명)
+				int qna_idx = 1; // 새 글 번호
+				
+				String sql = "SELECT MAX(qna_idx) FROM qna";
+				pstmt = con.prepareStatement(sql);
+				rs = pstmt.executeQuery();
+				
+				if(rs.next()) {
+					qna_idx = rs.getInt(1) + 1;
+				}
+				
+		//			System.out.println("새 글 번호 : " + qna_idx);
+				// ----------------------------------------------------------------------------
+				int ref = qna.getQna_re_ref(); // 원본글의 참조글번호
+				int lev = qna.getQna_re_lev(); // 원본글의 들여쓰기레벨
+				int seq = qna.getQna_re_seq(); // 원본글의 순서번호
+				
+				// 기존 답글들에 대한 순서번호 증가 = UPDATE 구문
+				// => 원본글의 참조글번호(qna_re_ref)와 같고
+				//    원본글의 순서번호(qna_re_seq) 보다 큰 레코드들의
+				//    순서번호를 + 1 씩 증가시키기
+				sql = "UPDATE qna"
+						+ "		SET"
+						+ "			qna_re_seq = qna_re_seq + 1"
+						+ "		WHERE"
+						+ "			qna_re_ref = ?"
+						+ "			AND qna_re_seq > ?";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, ref);
+				pstmt2.setInt(2, seq);
+				pstmt2.executeUpdate();
+				
+				JdbcUtil.close(pstmt2);
+				
+				// 새 답글에 사용될 원본글의 lev, seq 값 + 1 처리
+				lev++;
+				seq++;
+				
+				// ------------------------------------------------------------
+				// 답글 INSERT
+				// => 글쓰기와 달리 ref, lev, seq 값은 설정된 값으로 변경
+				sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
+				pstmt2 = con.prepareStatement(sql);
+				pstmt2.setInt(1, qna_idx);
+				pstmt2.setString(2, qna.getQna_subject());
+				pstmt2.setString(3, qna.getQna_content());
+				pstmt2.setInt(4, ref);
+				pstmt2.setInt(5, lev);
+				pstmt2.setInt(6, seq);
+				pstmt2.setString(7,  qna.getMember_id());
+				insertCount = pstmt2.executeUpdate();
 			
-			String sql = "SELECT MAX(qna_idx) FROM qna";
-			pstmt = con.prepareStatement(sql);
-			rs = pstmt.executeQuery();
-			
-			if(rs.next()) {
-				qna_idx = rs.getInt(1) + 1;
-			}
-			
-	//			System.out.println("새 글 번호 : " + qna_idx);
-			// ----------------------------------------------------------------------------
-			int ref = qna.getQna_re_ref(); // 원본글의 참조글번호
-			int lev = qna.getQna_re_lev(); // 원본글의 들여쓰기레벨
-			int seq = qna.getQna_re_seq(); // 원본글의 순서번호
-			
-			// 기존 답글들에 대한 순서번호 증가 = UPDATE 구문
-			// => 원본글의 참조글번호(qna_re_ref)와 같고
-			//    원본글의 순서번호(qna_re_seq) 보다 큰 레코드들의
-			//    순서번호를 + 1 씩 증가시키기
-			sql = "UPDATE qna"
-					+ "		SET"
-					+ "			qna_re_seq = qna_re_seq + 1"
-					+ "		WHERE"
-					+ "			qna_re_ref = ?"
-					+ "			AND qna_re_seq > ?";
-			pstmt2 = con.prepareStatement(sql);
-			pstmt2.setInt(1, ref);
-			pstmt2.setInt(2, seq);
-			pstmt2.executeUpdate();
-			
+		} catch (SQLException e) {
+			System.out.println("SQL 구문 오류! - insertReplyQna()");
+			e.printStackTrace();
+		} finally {
+			// DB 자원 반환
+			JdbcUtil.close(rs);
+			JdbcUtil.close(pstmt);
 			JdbcUtil.close(pstmt2);
-			
-			// 새 답글에 사용될 원본글의 lev, seq 값 + 1 처리
-			lev++;
-			seq++;
-			
-			// ------------------------------------------------------------
-			// 답글 INSERT
-			// => 글쓰기와 달리 ref, lev, seq 값은 설정된 값으로 변경
-			sql = "INSERT INTO qna VALUES (?,?,?,now(),?,?,?,?)";
-			pstmt2 = con.prepareStatement(sql);
-			pstmt2.setInt(1, qna_idx);
-			pstmt2.setString(2, qna.getQna_subject());
-			pstmt2.setString(3, qna.getQna_content());
-			pstmt2.setInt(4, ref);
-			pstmt2.setInt(5, lev);
-			pstmt2.setInt(6, seq);
-			pstmt2.setString(7,  qna.getMember_id());
-			insertCount = pstmt2.executeUpdate();
+		}
 		
-	} catch (SQLException e) {
-		System.out.println("SQL 구문 오류! - insertReplyQna()");
-		e.printStackTrace();
-	} finally {
-		// DB 자원 반환
-		JdbcUtil.close(rs);
-		JdbcUtil.close(pstmt);
-		JdbcUtil.close(pstmt2);
+		return insertCount;
 	}
-	
-	return insertCount;
-}
 	
 }
 

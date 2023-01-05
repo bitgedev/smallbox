@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -19,19 +20,31 @@ public class QnaReplyProAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("QnaReplyProAction");
+		
 		ActionForward forward = null;
+		
+		HttpSession session = request.getSession();
+		String member_id = (String)session.getAttribute("sId");
+		String qna_subject = request.getParameter("qna_subject");
+		String qna_content = request.getParameter("qna_content");
+//		System.out.println("아이디테스트 : " + member_id);
+		int qna_re_ref = Integer.parseInt(request.getParameter("qna_re_ref"));
+		int qna_re_lev = Integer.parseInt(request.getParameter("qna_re_lev"));
+		int qna_re_seq = Integer.parseInt(request.getParameter("qna_re_seq"));
 		
 		try {
 			// 전달받은 파라미터 데이터를 QnaBean 클래스 인스턴스 생성 후 저장
 			QnaBean qna = new QnaBean();
-			qna.setMember_id(request.getParameter("member_id"));
-			qna.setQna_subject(request.getParameter("qna_subject"));
-			qna.setQna_content(request.getParameter("qna_content"));
+			qna.setMember_id(member_id);
+			qna.setQna_subject(qna_subject);
+			qna.setQna_content(qna_content);
+//			System.out.println(member_id+qna_subject+qna_content);
 			// 입력받지 않고 hidden 속성으로 전달한 ref, lev, seq 값도 저장 필수! 
-			qna.setQna_re_ref(Integer.parseInt(request.getParameter("qna_re_ref")));
-			qna.setQna_re_lev(Integer.parseInt(request.getParameter("qna_re_lev")));
-			qna.setQna_re_seq(Integer.parseInt(request.getParameter("qna_re_seq")));
-//			System.out.println(qna);
+			qna.setQna_re_ref(qna_re_ref);
+			qna.setQna_re_lev(qna_re_lev);
+			qna.setQna_re_seq(qna_re_seq);
+			System.out.println(qna);
 			// -------------------------------------------------------------------------
 			// QnaReplyProService 클래스 인스턴스 생성 후
 			// registReplyQna() 메서드를 호출하여 글쓰기 작업 요청

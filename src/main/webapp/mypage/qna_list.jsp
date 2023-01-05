@@ -33,6 +33,8 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/couponlist.css" rel="stylesheet">
+  <!--   답글아이콘 -->
+  <script src="https://kit.fontawesome.com/5a85844b1b.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<header>
@@ -46,7 +48,7 @@
       <div class="container">
 
         <div class="d-flex justify-content-between align-items-center">
-          <h2>1:1 문의내역${sessionScope.sId }</h2>
+          <h2>1:1 문의내역</h2>
           <ol>
             <li><a href="index.html">Home</a></li>
             <li><a href="MyPageMain.my">MyPage</a></li>
@@ -106,8 +108,8 @@
 					<c:forEach var="i" begin="1" end="${qna.qna_re_lev }">
 						&nbsp;&nbsp;
 					</c:forEach>
-					<%-- 답글 제목 앞에 이미지 추가 --%>
-					<img src="images/re.gif">	
+					<%-- 답글 제목 앞에 아이콘 추가 --%>
+					<i class="fa-brands fa-replyd"></i>
 				</c:if>
 				<%-- =============================================================== --%>
 				<a href="QnaDetail.my?qna_idx=${qna.qna_idx }&pageNum=${pageNum }">
