@@ -78,6 +78,12 @@
 	<section class="inner-page" style="display: inline-block;">
 	<!-- 게시판 답글 작성 -->
 	<h2 style="margin-left:50px">1:1회원문의 답글작성<hr></h2>
+	<div>
+	<h2>qna_idx : ${param.qna_idx}</h2>
+	<h2>qna_re_ref : ${qna.qna_re_ref }</h2>
+	<h2>qna_re_lev : ${qna.qna_re_lev }</h2>
+	<h2>qna_re_seq : ${qna.qna_re_seq }</h2>
+	</div>
 	<form action="QnaReplyPro.my" name="qnaForm" method="post" style="margin-left:50px">
 		<!-- 입력받지 않은 글번호, 페이지번호 hidden 속성으로 전달 -->
 			<input type="hidden" name="qna_idx" value="${param.qna_idx }" >

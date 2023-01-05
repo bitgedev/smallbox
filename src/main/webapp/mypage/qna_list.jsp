@@ -127,7 +127,6 @@
 	</table>
 	<br>
 	<br>
-	<button onclick="location.href='QnaWriteForm.my'" style="float:right">글쓰기</button>
 	<section id="pageList" style="text-align: center;margin-left: 320px;"> <!-- 페이징 처리 영역 -->
 		<!-- 
 		현재 페이지 번호(pageNum)가 1보다 클 경우에만 [이전] 링크 동작

@@ -79,14 +79,13 @@
 	<table style="text-align: center;margin-top: 80px;margin-left:50px"><!-- 왼쪽공간이 너무 넓어서 margin-left설정 -->
 		<thead>
 		<tr>
-			<th width="100">예약 번호</th>
+			<th width="100">예약 번호<br>res_idx</th>
 <!-- 			<th width="150">예매자 아이디</th> -->
-			<th width="150">영화 제목</th>
-			<th width="100">상영관<br>theather_title<br>theater_idx</th>
-<!-- 			<th width="100">예약일<br>res_date</th> -->
+			<th width="150">영화 제목<br>theater_title</th>
+			<th width="100">상영관<br>theater_idx</th>
 			<th width="100">상영일<br>theater_date</th>
 			<th width="150">상영시간<br>res_time</th>
-			<th width="150">좌석</th>
+			<th width="150">좌석<br>res_seat</th>
 <!-- 			<th width="150">관람인원</th>예약이 어떻게 될지 봐야 알것같아요.
 근데 좌석 A12, C12 이런식으로 복수개 보여줘도 충분하지 않을까..고민 -->
 			<th width="150">예매 취소하기</th>
@@ -98,16 +97,13 @@
 			<tr>
 				<td>${reserve.res_num }</td>
 <%-- 				<td>${reserve.member_id }</td> --%>
-				<td>${reserve.movie_title }</td>
-				<td>${theater.theater_title }<br>
-					…………………<br>
-					${reserve.theater_idx }<br>
-				</td>
+				<td>${reserve.theater_title }</td>
+				<td>${reserve.theater_idx }</td>
 				<td>
 <!-- 					JSTL 의 fmt 라이브러리를 활용하여 날짜 표현 형식 변경 -->
 <!-- 					fmt:formatDate - Date 타입 날짜 형식 변경 -->
 <!-- 					fmt:parseDate - String 타입 날짜 형식 변경 -->
-					<fmt:formatDate value="${theater.theater_date }" pattern="yy-MM-dd"/>
+					<fmt:formatDate value="${res.res_date }" pattern="yy-MM-dd"/>
 				</td>
 				<td>${reserve.res_time }</td>
 				<td>${reserve.res_seat }</td>

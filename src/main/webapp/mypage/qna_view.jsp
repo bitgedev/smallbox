@@ -76,9 +76,15 @@
 	
 	<section class="inner-page" style="display: inline-block;">
 	
-	<h2 style="margin-left:50px">문의 상세보기</h2><hr></h2>
+	<h2 style="margin-left:50px">문의 상세보기</h2><hr>
+	<div>
+	<h2>qna_idx : ${param.qna_idx}</h2>
+	<h2>qna_re_ref : ${qna.qna_re_ref }</h2>
+	<h2>qna_re_lev : ${qna.qna_re_lev }</h2>
+	<h2>qna_re_seq : ${qna.qna_re_seq }</h2>
+	</div>
 		<section id="basicInfoArea">
-			<table >
+			<table>
 			<tr>
 				<th width="70">제 목</th><td colspan="3" >${qna.qna_subject }</td>
 			</tr>
@@ -90,12 +96,10 @@
 				<th colspan="4">내용</th><td colspan="4">${qna.qna_content }</td>
 			</tr>
 			</table>
+			<input type="button" value="답변" onclick="location.href='QnaReplyForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
+			<input type="button" value="삭제" onclick="location.href='QnaDeleteForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
+			<input type="button" value="목록" onclick="location.href='QnaList.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
 		</section>
-	<section id="commandList" style="float:right">
-		<input type="button" value="답변" onclick="location.href='QnaReplyForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
-		<input type="button" value="삭제" onclick="location.href='QnaDeleteForm.my?qna_idx=${param.qna_idx}&pageNum=${param.pageNum }'">
-		<input type="button" value="목록" onclick="location.href='QnaList.my?pageNum=${param.pageNum}'">
-	</section>
 	</section>
 	</div>
 	</main>
