@@ -79,7 +79,7 @@
 	<table style="text-align: center;margin-top: 80px;margin-left:50px;">
 	<thead>
 	<tr>
-		<th width="100px">번호</th>
+		<th width="150px">문의등록 번호</th>
 		<th width="300px">제목</th>
 		<th width="150px">날짜</th>
 	</tr>
@@ -109,7 +109,7 @@
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<%-- 답글 제목 앞에 아이콘 추가 --%>
-					<i class="fa-solid fa-turn-down-right"></i><i class="fa-brands fa-replyd"></i>
+					<i class="fa-brands fa-replyd"></i> [상담완료]
 				</c:if>
 				<%-- =============================================================== --%>
 				<a href="QnaDetail.my?qna_idx=${qna.qna_idx }&pageNum=${pageNum }">
@@ -126,6 +126,9 @@
 	</c:forEach>
 	</table>
 	<br>
+	<section style="margin:right">
+		<input type="button" value="문의 작성하기" onclick="location.href='QnaWriteForm.my'">
+	</section>
 	<br>
 	<section id="pageList" style="text-align: center;margin-left: 320px;"> <!-- 페이징 처리 영역 -->
 		<!-- 
