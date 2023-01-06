@@ -111,9 +111,9 @@ public class QnaDAO {
 			//           순서번호(qna_re_seq) 기준 오름차순
 			// => 조회 시작 레코드 행번호(startRow) 부터 listLimit 갯수(10) 만큼만 조회
 			String sql = "SELECT * "
-					+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id='?') "
-					+ "WHERE a.qna_re_ref = b.qna_re_ref "
-					+ "ORDER BY qna_re_ref DESC, , qna_re_seq ASC "
+					+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id = ?) id_ref "
+					+ "WHERE a.qna_re_ref = id_ref.qna_re_ref "
+					+ "ORDER BY a.qna_re_ref DESC, a.qna_re_seq ASC "
 					+ "LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sId);
@@ -123,7 +123,6 @@ public class QnaDAO {
 			
 			// 전체 목록 저장할 List 객체 생성
 			qnaList = new ArrayList<QnaBean>();
-			
 			// 조회 결과가 있을 경우
 			while(rs.next()) {
 				// QnaBean 객체(qna) 생성 후 조회 데이터 저장
@@ -136,8 +135,7 @@ public class QnaDAO {
 				qna.setQna_re_lev(rs.getInt("qna_re_lev"));
 				qna.setQna_re_seq(rs.getInt("qna_re_seq"));
 				qna.setMember_id(rs.getString("member_id"));
-//				System.out.println(qna);
-				
+				System.out.println("qna : " + qna);
 				// 전체 목록 저장하는 List 객체에 1개 게시물 정보가 저장된 BoardBean 객체 추가
 				qnaList.add(qna);
 			}
@@ -216,8 +214,8 @@ public class QnaDAO {
 		try {
 			// qna 테이블의 모든 레코드 갯수 조회
 			String sql = "SELECT COUNT(*) "
-					+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id='?') "
-					+ "WHERE a.qna_re_ref = b.qna_re_ref";
+						+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id=?) id_ref "
+						+ "WHERE a.qna_re_ref = id_ref.qna_re_ref";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sId);
 			rs = pstmt.executeQuery();
