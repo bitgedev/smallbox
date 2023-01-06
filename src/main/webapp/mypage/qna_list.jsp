@@ -106,10 +106,10 @@
 				<c:if test="${qna.qna_re_lev > 0 }">
 					<%-- 반복문을 통해 qna_re_lev 값 만큼 공백 추가 --%>
 					<c:forEach var="i" begin="1" end="${qna.qna_re_lev }">
-						&nbsp;&nbsp;
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					</c:forEach>
 					<%-- 답글 제목 앞에 아이콘 추가 --%>
-					<i class="fa-brands fa-replyd"></i>
+					<i class="fa-solid fa-turn-down-right"></i><i class="fa-brands fa-replyd"></i>
 				</c:if>
 				<%-- =============================================================== --%>
 				<a href="QnaDetail.my?qna_idx=${qna.qna_idx }&pageNum=${pageNum }">

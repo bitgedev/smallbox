@@ -78,11 +78,6 @@
 	
 	<h2 style="margin-left:50px">문의 상세보기</h2><hr>
 	<div>
-	<h2>qna_idx : ${param.qna_idx}</h2>
-	<h2>qna_idx : ${qna.qna_idx }</h2>
-	<h2>qna_re_ref : ${qna.qna_re_ref }</h2>
-	<h2>qna_re_lev : ${qna.qna_re_lev }</h2>
-	<h2>qna_re_seq : ${qna.qna_re_seq }</h2>
 	</div>
 		<section id="basicInfoArea">
 			<input type="hidden" name="qna_idx" value="${param.qna_idx }" >
