@@ -110,10 +110,11 @@ public class QnaDAO {
 			// => 정렬 : 참조글번호(qna_re_ref) 기준 내림차순, 
 			//           순서번호(qna_re_seq) 기준 오름차순
 			// => 조회 시작 레코드 행번호(startRow) 부터 listLimit 갯수(10) 만큼만 조회
-			String sql = "SELECT * FROM qna "
-								+ "WHERE member_id = ? "
-								+ "ORDER BY qna_re_ref DESC, qna_re_seq ASC "
-								+ "LIMIT ?,?";
+			String sql = "SELECT * "
+					+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id='?') "
+					+ "WHERE a.qna_re_ref = b.qna_re_ref "
+					+ "ORDER BY qna_re_ref DESC, , qna_re_seq ASC "
+					+ "LIMIT ?,?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sId);
 			pstmt.setInt(2, startRow);
@@ -215,8 +216,8 @@ public class QnaDAO {
 		try {
 			// qna 테이블의 모든 레코드 갯수 조회
 			String sql = "SELECT COUNT(*) "
-								+ "FROM qna "
-								+ "WHERE member_id = ?";
+					+ "FROM qna a, (SELECT qna_re_ref FROM qna WHERE member_id='?') "
+					+ "WHERE a.qna_re_ref = b.qna_re_ref";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, sId);
 			rs = pstmt.executeQuery();
