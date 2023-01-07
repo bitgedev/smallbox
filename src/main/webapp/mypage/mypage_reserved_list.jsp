@@ -109,7 +109,7 @@
 				<td>${reserve.res_seat }</td>
 				<td>${reserve.res_num }</td>
 				<td>
-					<button onclick="location.href='ReserveCancel.my?res_idx=${reserve.res_idx }'"><iconify-icon icon="mdi:movie-off" style="color: #3b0b5f;"></iconify-icon></button>
+					<button onclick="location.href='ReserveCancel.my?res_idx=${reserve.res_idx }&pageNum=${pageNum }'"><iconify-icon icon="mdi:movie-off" style="color: #3b0b5f;"></iconify-icon></button>
 				</td>
 				<td>
 					<button onclick="location.href='#'"><iconify-icon icon="jam:write-f" style="color: #3b0b5f;"></iconify-icon></button>

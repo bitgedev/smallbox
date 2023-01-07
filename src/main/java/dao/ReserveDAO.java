@@ -91,7 +91,7 @@ public class ReserveDAO {
 			ResultSet rs = null;
 			try {
 				String sql = 
-						"SELECT * FROM reserve WHERE res_date < ALL "
+						"SELECT * FROM reserve WHERE res_date = ALL "
 						+"(SELECT res_date FROM reserve WHERE res_date > date_format(now(),'%Y-%m-%d')) "
 						+"AND res_idx=?";
 				pstmt = con.prepareStatement(sql);
