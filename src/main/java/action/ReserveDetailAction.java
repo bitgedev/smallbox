@@ -17,7 +17,7 @@ public class ReserveDetailAction implements Action {
 		ActionForward forward = null;
 		
 		// 상세정보 조회에 필요한 글번호 가져오기
-		int res_num = Integer.parseInt(request.getParameter("res_num"));
+		int res_num = Integer.parseInt(request.getParameter("res_idx"));
 //		System.out.println("res_num = " + res_num);
 		// => pageNum 파라미터는 현재 작업에서 실제로 활용되는 데이터가 아니므로
 		//    다음 페이지 포워딩 시 URL 또는 request 객체에 함께 전달하기만 하면 된다!

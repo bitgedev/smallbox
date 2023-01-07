@@ -1,11 +1,12 @@
 package dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import db.JdbcUtil;
@@ -57,12 +58,16 @@ public class ReserveDAO {
 				while(rs.next()) {
 					// ReserveBean 객체(reserve) 생성 후 조회 데이터 저장
 					ReserveBean reserve = new ReserveBean();
+					reserve.setRes_idx(rs.getInt("res_idx"));
 					reserve.setRes_num(rs.getInt("res_num"));
-					reserve.setMovie_title(rs.getString("movie_title"));
+					reserve.setTheater_idx(rs.getInt("theater_idx"));
+					reserve.setTheater_title(rs.getString("theater_title"));
 					reserve.setMember_id(rs.getString("member_id"));
 					reserve.setRes_date(rs.getDate("res_date"));
 					reserve.setRes_time(rs.getTime("res_time"));
 					reserve.setRes_seat(rs.getString("res_seat"));
+					reserve.setRes_pay_type(rs.getInt("res_pay_type"));
+					reserve.setRes_price(rs.getInt("res_price"));
 					System.out.println(reserve);
 					// 전체 목록 저장하는 List 객체에 1개 게시물 정보가 저장된 ReserveBean 객체 추가
 					reserveList.add(reserve);
@@ -80,16 +85,17 @@ public class ReserveDAO {
 			return reserveList;
 		}
 		//예약 취소가능한 시간 판별
-		public boolean isTimeOk(int res_num) {//, String res_date ->파라미터 일단 뺐음.
+		public boolean isTimeOk(int res_idx) {//, String res_date ->파라미터 일단 뺐음.
 			boolean isTimeOk = false;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
 			try {
-				String sql = "SELECT * FROM reserve WHERE res_num=?";
-//				 AND res_date=? > now() -> 일단 쿼리문에서 뺐음.
+				String sql = 
+						"SELECT * FROM reserve WHERE res_date < ALL "
+						+"(SELECT res_date FROM reserve WHERE res_date > date_format(now(),'%Y-%m-%d')) "
+						+"AND res_idx=?";
 				pstmt = con.prepareStatement(sql);
-				pstmt.setInt(1, res_num);
-//				pstmt.setString(2, res_date);
+				pstmt.setInt(1, res_idx);
 				rs = pstmt.executeQuery();
 				if(rs.next()) {
 					isTimeOk = true;
@@ -106,7 +112,7 @@ public class ReserveDAO {
 			int cancelCount = 0;
 			PreparedStatement pstmt = null;
 			try {
-				String sql = "DELETE FROM reserve WHERE res_num=?";
+				String sql = "DELETE FROM reserve WHERE res_idx=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, res_num);
 				cancelCount = pstmt.executeUpdate();
@@ -126,9 +132,9 @@ public class ReserveDAO {
 			ResultSet rs = null;
 			
 			try {
-				// reserve 테이블에서 예약번호(res_num)가 일치하는 1개 레코드 조회
+				// reserve 테이블에서 예약번호(res_idx)가 일치하는 1개 레코드 조회
 				String sql = "SELECT * FROM reserve "
-									+ "WHERE res_num=?";
+									+ "WHERE res_idx=?";
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, res_num);
 				rs = pstmt.executeQuery();
@@ -137,15 +143,17 @@ public class ReserveDAO {
 				if(rs.next()) {
 					// BoardBean 객체(board) 생성 후 조회 데이터 저장
 					reserve = new ReserveBean();
+					reserve.setRes_idx(rs.getInt("res_idx"));
 					reserve.setRes_num(rs.getInt("res_num"));
+					reserve.setTheater_idx(rs.getInt("theater_idx"));
+					reserve.setTheater_title(rs.getString("theater_title"));
+					reserve.setMember_id(rs.getString("member_id"));
 					reserve.setRes_date(rs.getDate("res_date"));
 					reserve.setRes_time(rs.getTime("res_time"));
 					reserve.setRes_seat(rs.getString("res_seat"));
-					reserve.setMovie_title(rs.getString("movie_title"));
-					reserve.setMember_id(rs.getString("member_id"));
-					reserve.setTheater_idx(rs.getInt("theatere_idx"));
 					reserve.setRes_pay_type(rs.getInt("res_pay_type"));
-					reserve.setRes_pay(rs.getInt("res_pay"));
+					reserve.setRes_price(rs.getInt("res_price"));
+					
 //					System.out.println(reserve);
 				}
 				

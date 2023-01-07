@@ -33,6 +33,9 @@
   <!-- Template Main CSS File -->
   <link href="assets/css/style.css" rel="stylesheet">
   <link href="assets/css/couponlist.css" rel="stylesheet">
+  
+<!--   아이콘 -->
+  <script src="https://code.iconify.design/iconify-icon/1.0.2/iconify-icon.min.js"></script>
 </head>
 <body>
 	<header>
@@ -80,40 +83,37 @@
 		<thead>
 		<tr>
 			<th width="100">예약 번호<br>res_idx</th>
-<!-- 			<th width="150">예매자 아이디</th> -->
-			<th width="150">영화 제목<br>theater_title</th>
+			<th width="200">영화 제목<br>theater_title</th>
 			<th width="100">상영관<br>theater_idx</th>
-			<th width="100">상영일<br>theater_date</th>
-			<th width="150">상영시간<br>res_time</th>
+			<th width="100">상영일<br>res_date</th>
+			<th width="100">상영시간<br>res_time</th>
 			<th width="150">좌석<br>res_seat</th>
-<!-- 			<th width="150">관람인원</th>예약이 어떻게 될지 봐야 알것같아요.
-근데 좌석 A12, C12 이런식으로 복수개 보여줘도 충분하지 않을까..고민 -->
-			<th width="150">예매 취소하기</th>
-			<th width="150">리뷰 작성하기</th>
+			<th width="100">관람인원<br>res_num</th>
+			<th width="100">예매취소</th>
+			<th width="100">리뷰작성</th>
 		</tr>
 		</thead>
 		<tbody>
 		<c:forEach var="reserve" items="${reserveList }">
 			<tr>
-				<td>${reserve.res_num }</td>
-<%-- 				<td>${reserve.member_id }</td> --%>
+				<td>${reserve.res_idx }</td>
 				<td>${reserve.theater_title }</td>
 				<td>${reserve.theater_idx }</td>
 				<td>
 <!-- 					JSTL 의 fmt 라이브러리를 활용하여 날짜 표현 형식 변경 -->
 <!-- 					fmt:formatDate - Date 타입 날짜 형식 변경 -->
 <!-- 					fmt:parseDate - String 타입 날짜 형식 변경 -->
-					<fmt:formatDate value="${res.res_date }" pattern="yy-MM-dd"/>
+					<fmt:formatDate value="${reserve.res_date }" pattern="yy-MM-dd"/>
 				</td>
 				<td>${reserve.res_time }</td>
 				<td>${reserve.res_seat }</td>
+				<td>${reserve.res_num }</td>
 				<td>
-					<input type="button" value="취소" onclick="location.href='ReserveCancel.my?res_num=${reserve.res_num }'"><br>
+					<button onclick="location.href='ReserveCancel.my?res_idx=${reserve.res_idx }'"><iconify-icon icon="mdi:movie-off" style="color: #3b0b5f;"></iconify-icon></button>
 				</td>
 				<td>
-					<input type="button" value="작성" onclick="location.href='ReviewWriteForm.my?res_num=${reserve.res_num }'"><br>
+					<button onclick="location.href='#'"><iconify-icon icon="jam:write-f" style="color: #3b0b5f;"></iconify-icon></button>
 				</td>
-			</tr>
 		</c:forEach>
 	</table>
 	<!-- 만약, pageNum 파라미터가 비어있을 경우 pageNum 변수 선언 및 기본값 1로 설정 -->
