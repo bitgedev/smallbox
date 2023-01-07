@@ -30,7 +30,7 @@ public class ReserveCancelProAction implements Action {
 			boolean isTimeOk = service.isTimeOk(res_idx);
 			System.out.println(isTimeOk);
 			
-			//취소 할 수 없는 시간일때
+			//취소 할 수 없는 시간(=전날까지만 예매취소 할 수 있음!)일때
 			if(!isTimeOk) {
 				response.setContentType("text/html; charset=UTF-8");
 				PrintWriter out = response.getWriter();

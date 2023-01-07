@@ -75,6 +75,8 @@
    		</ul>
    </aside>
    
+<!--    Qna 테이블에 member_id 칼럼추가해주세요~! -->
+   
    <section class="inner-page" style="display: inline-block;">
 	<table style="text-align: center;margin-top: 80px;margin-left:50px;">
 	<thead>

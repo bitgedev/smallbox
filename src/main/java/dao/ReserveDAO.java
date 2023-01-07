@@ -40,7 +40,7 @@ public class ReserveDAO {
 		public void setConnection(Connection con) {
 			this.con = con;
 		}
-		// 예약내역(목록) 조회
+		// 예매내역(목록) 조회
 		public List<ReserveBean> selectReserveList(String sId) {
 			List<ReserveBean> reserveList = null;
 			try {
@@ -84,8 +84,8 @@ public class ReserveDAO {
 			
 			return reserveList;
 		}
-		//예약 취소가능한 시간 판별
-		public boolean isTimeOk(int res_idx) {//, String res_date ->파라미터 일단 뺐음.
+		//예매 취소가능한 시간 판별(전날까지만 예매취소할수있게하였음!)
+		public boolean isTimeOk(int res_idx) {
 			boolean isTimeOk = false;
 			PreparedStatement pstmt = null;
 			ResultSet rs = null;
